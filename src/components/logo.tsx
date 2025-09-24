@@ -1,11 +1,11 @@
-import { BookHeart } from 'lucide-react';
+import { Wrench } from 'lucide-react';
 
 export function Logo() {
   return (
     <div className="flex items-center gap-2">
-      <BookHeart className="h-7 w-7 text-primary" />
+      <Wrench className="h-7 w-7 text-primary" />
       <h1 className="text-xl font-bold tracking-tighter text-foreground">
-        pypapers.in
+        My Tools Hub
       </h1>
     </div>
   );

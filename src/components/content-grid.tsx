@@ -13,7 +13,7 @@ type ContentGridProps = {
 
 export function ContentGrid({
   allContent,
-  activeCategory = 'all',
+  activeCategory = 'tool',
 }: ContentGridProps) {
   const [searchTerm, setSearchTerm] = React.useState('');
 
@@ -35,7 +35,7 @@ export function ContentGrid({
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search for tools, books..."
+            placeholder="Search for tools..."
             className="pl-10 text-base"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}

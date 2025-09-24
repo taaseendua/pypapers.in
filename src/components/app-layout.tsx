@@ -2,9 +2,6 @@
 
 import React from 'react';
 import {
-  BookOpen,
-  Headphones,
-  LayoutGrid,
   Wand2,
   Wrench,
 } from 'lucide-react';
@@ -25,14 +22,11 @@ import { Logo } from './logo';
 import { AiRecommender } from './ai-recommender';
 
 const navItems = [
-  { id: 'all', label: 'All', icon: LayoutGrid },
   { id: 'tool', label: 'Tools', icon: Wrench },
-  { id: 'book', label: 'Books', icon: BookOpen },
-  { id: 'audiobook', label: 'Audiobooks', icon: Headphones },
 ];
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-  const [activeCategory, setActiveCategory] = React.useState('all');
+  const [activeCategory, setActiveCategory] = React.useState('tool');
   const [isAiRecommenderOpen, setIsAiRecommenderOpen] = React.useState(false);
 
   return (
