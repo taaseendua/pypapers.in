@@ -2,7 +2,7 @@
 'use client';
 
 import { AppLayout } from '@/components/app-layout';
-import { Book, Download, BookOpen, Play, Pause, Rewind, FastForward, Volume2, VolumeX, Timer } from 'lucide-react';
+import { Book, Download, BookOpen, Play, Pause } from 'lucide-react';
 import { books } from '@/lib/books-data';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,9 +10,6 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { Slider } from '@/components/ui/slider';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-
 
 function formatTime(seconds: number) {
     if (isNaN(seconds) || seconds === Infinity) {
@@ -30,8 +27,6 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(1);
-  const [playbackRate, setPlaybackRate] = useState(1);
   const [pdfPage, setPdfPage] = useState(0);
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -97,33 +92,6 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
     }
   };
 
-  const handleRewind = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime -= 10;
-    }
-  };
-
-  const handleForward = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime += 10;
-    }
-  };
-
-  const handleVolumeChange = (value: number[]) => {
-    if (audioRef.current) {
-      const newVolume = value[0];
-      setVolume(newVolume);
-      audioRef.current.volume = newVolume;
-    }
-  };
-
-  const handlePlaybackRateChange = (rate: number) => {
-    if (audioRef.current) {
-      setPlaybackRate(rate);
-      audioRef.current.playbackRate = rate;
-    }
-  };
-
   return (
     <Card className="flex flex-col">
       <CardHeader>
@@ -163,54 +131,11 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
               <span>{formatTime(duration)}</span>
             </div>
 
-            <div className="flex items-center justify-between gap-2">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <Timer className="h-5 w-5" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-2">
-                  <div className="flex flex-col gap-1">
-                    {[0.75, 1, 1.25, 1.5, 2].map((rate) => (
-                      <Button key={rate} variant={playbackRate === rate ? 'secondary' : 'ghost'} size="sm" onClick={() => handlePlaybackRateChange(rate)}>
-                        {rate}x
-                      </Button>
-                    ))}
-                  </div>
-                </PopoverContent>
-              </Popover>
-
-              <div className="flex items-center gap-1">
-                <Button variant="ghost" size="icon" onClick={handleRewind}>
-                  <Rewind className="h-6 w-6" />
-                </Button>
+            <div className="flex items-center justify-center gap-2">
                 <Button variant="ghost" size="icon" className="h-12 w-12" onClick={togglePlayPause}>
                   {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
                 </Button>
-                <Button variant="ghost" size="icon" onClick={handleForward}>
-                  <FastForward className="h-6 w-6" />
-                </Button>
-              </div>
-
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    {volume === 0 ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-32 p-2">
-                   <Slider
-                    min={0}
-                    max={1}
-                    step={0.05}
-                    value={[volume]}
-                    onValueChange={handleVolumeChange}
-                  />
-                </PopoverContent>
-              </Popover>
             </div>
-
           </div>
         )}
       </CardContent>
