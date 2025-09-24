@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, QrCode } from 'lucide-react';
+import { ArrowRight, QrCode, Cake, Calculator } from 'lucide-react';
 
 const tools = [
   {
@@ -10,6 +10,18 @@ const tools = [
     description: 'Create QR codes for URLs, text, and more.',
     href: '/qr-code-generator',
     icon: <QrCode className="h-8 w-8 text-primary" />,
+  },
+  {
+    title: 'Age Calculator',
+    description: 'Calculate age from your date of birth.',
+    href: '/age-calculator',
+    icon: <Cake className="h-8 w-8 text-primary" />,
+  },
+  {
+    title: 'EMI Calculator',
+    description: 'Calculate Equated Monthly Installment for loans.',
+    href: '/emi-calculator',
+    icon: <Calculator className="h-8 w-8 text-primary" />,
   },
 ];
 
