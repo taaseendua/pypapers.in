@@ -1,9 +1,9 @@
 
 export const books = [
     {
-        title: 'The Art of War',
-        description: 'A timeless classic of military strategy, this book offers profound insights into competition and conflict that are still relevant today.',
-        coverImage: 'https://picsum.photos/seed/book1/600/800',
-        pdfUrl: 'https://archive.org/details/artofwarsuntzu00sunt'
+        title: 'Rich Dad Poor Dad',
+        description: 'What the Rich Teach Their Kids About Money That the Poor and Middle Class Do Not!',
+        coverImage: 'https://picsum.photos/seed/book5/600/800',
+        pdfUrl: 'https://dn721905.ca.archive.org/0/items/rich-dad-poor-dad_bongotweet/rich-dad-poor-dad.pdf'
     }
 ];
