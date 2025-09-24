@@ -11,6 +11,9 @@ import { Progress } from '@/components/ui/progress';
 import { useState, useRef } from 'react';
 
 function formatTime(seconds: number) {
+  if (isNaN(seconds) || seconds === Infinity) {
+    return '0:00';
+  }
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = Math.floor(seconds % 60);
   return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
@@ -21,10 +24,11 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleTimeUpdate = () => {
     if (audioRef.current) {
-      const { currentTime, duration } = audioRef.current;
+      const { currentTime } = audioRef.current;
       setCurrentTime(currentTime);
       setProgress(duration > 0 ? (currentTime / duration) * 100 : 0);
     }
@@ -35,6 +39,13 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
       setDuration(audioRef.current.duration);
     }
   };
+  
+  const handleCanPlay = () => {
+    setIsLoading(false);
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  }
 
   return (
     <Card className="flex flex-col">
@@ -59,15 +70,22 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
             className="w-full"
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
+            onCanPlay={handleCanPlay}
           >
             <source src={book.audioUrl} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
-          <Progress value={progress} className="w-full" />
-          <div className="flex justify-between text-xs text-muted-foreground">
-            <span>{formatTime(currentTime)}</span>
-            <span>{formatTime(duration)}</span>
-          </div>
+           {isLoading ? (
+            <div className="text-sm text-muted-foreground text-center py-4">Loading audio...</div>
+          ) : (
+            <>
+              <Progress value={progress} className="w-full" />
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span>{formatTime(currentTime)}</span>
+                <span>{formatTime(duration)}</span>
+              </div>
+            </>
+          )}
         </div>
       </CardContent>
       <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
