@@ -1,21 +1,50 @@
 'use server';
+/**
+ * @fileOverview A text translation AI flow.
+ *
+ * - translateText - A function that handles the text translation process.
+ * - TranslateTextInput - The input type for the translateText function.
+ * - TranslateTextOutput - The return type for the translateText function.
+ */
 
-import { ai } from '@/ai/genkit';
-import { z } from 'zod';
+import {ai} from '@/ai/genkit';
+import {z} from 'genkit';
 
-const TranslationRequestSchema = z.object({
+const TranslateTextInputSchema = z.object({
   text: z.string().describe('The text to be translated.'),
-  targetLanguage: z.string().describe('The language to translate the text into.'),
+  targetLanguage: z
+    .string()
+    .describe('The language to translate the text into.'),
+});
+export type TranslateTextInput = z.infer<typeof TranslateTextInputSchema>;
+
+const TranslateTextOutputSchema = z
+  .string()
+  .describe('The translated text.');
+export type TranslateTextOutput = z.infer<typeof TranslateTextOutputSchema>;
+
+export async function translateText(
+  text: string,
+  targetLanguage: string
+): Promise<TranslateTextOutput> {
+  return translateTextFlow({text, targetLanguage});
+}
+
+const prompt = ai.definePrompt({
+  name: 'translateTextPrompt',
+  input: {schema: TranslateTextInputSchema},
+  output: {schema: TranslateTextOutputSchema},
+  prompt: `Translate the following text to {{{targetLanguage}}}:\n\n{{{text}}}`,
 });
 
-export async function translateText(text: string, targetLanguage: string) {
-  const prompt = `Translate the following text to ${targetLanguage}:\n\n${text}`;
-
-  const { output } = await ai.generate({
-    prompt,
-    output: {
-      schema: z.string().describe('The translated text.'),
-    },
-  });
-  return output || '';
-}
+const translateTextFlow = ai.defineFlow(
+  {
+    name: 'translateTextFlow',
+    inputSchema: TranslateTextInputSchema,
+    outputSchema: TranslateTextOutputSchema,
+  },
+  async input => {
+    const {output} = await prompt(input);
+    return output || '';
+  }
+);
