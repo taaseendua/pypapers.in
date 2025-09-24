@@ -14,220 +14,220 @@ import { Slider } from '@/components/ui/slider';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 
-export default function BooksPage() {
-
-  function formatTime(seconds: number) {
+function formatTime(seconds: number) {
     if (isNaN(seconds) || seconds === Infinity) {
       return '0:00';
     }
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-  }
+}
 
-  function BookCard({ book }: { book: (typeof books)[0] }) {
-    const audioRef = useRef<HTMLAudioElement>(null);
-    const [progress, setProgress] = useState(0);
-    const [buffered, setBuffered] = useState(0);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [duration, setDuration] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [volume, setVolume] = useState(1);
-    const [playbackRate, setPlaybackRate] = useState(1);
-    const [pdfPage, setPdfPage] = useState(0);
-  
-    const storageKeyAudio = `book_progress_audio_${book.title}`;
-    const storageKeyPdf = `book_progress_pdf_${book.title}`;
-  
-    useEffect(() => {
-      const savedAudioTime = localStorage.getItem(storageKeyAudio);
-      if (savedAudioTime && audioRef.current) {
-          audioRef.current.currentTime = parseFloat(savedAudioTime);
-      }
-      const savedPdfPage = localStorage.getItem(storageKeyPdf);
-      if (savedPdfPage) {
-          setPdfPage(parseInt(savedPdfPage, 10));
-      }
-    }, [storageKeyAudio, storageKeyPdf]);
-  
-  
-    const handleTimeUpdate = () => {
-      if (audioRef.current) {
-        const { currentTime, duration } = audioRef.current;
-        setCurrentTime(currentTime);
-        setProgress(duration > 0 ? (currentTime / duration) * 100 : 0);
-        localStorage.setItem(storageKeyAudio, currentTime.toString());
-      }
-    };
-  
-    const handleLoadedMetadata = () => {
-      if (audioRef.current) {
-        setDuration(audioRef.current.duration);
-      }
-    };
-  
-    const handleProgress = () => {
-      if (audioRef.current && audioRef.current.buffered.length > 0) {
-        const bufferedEnd = audioRef.current.buffered.end(audioRef.current.buffered.length - 1);
-        const duration = audioRef.current.duration;
-        if (duration > 0) {
-          setBuffered((bufferedEnd / duration) * 100);
-        }
-      }
-    };
-  
-    const handleSeek = (event: React.MouseEvent<HTMLDivElement>) => {
-      if (audioRef.current && duration > 0) {
-          const progressBar = event.currentTarget;
-          const clickPositionX = event.clientX - progressBar.getBoundingClientRect().left;
-          const progressBarWidth = progressBar.offsetWidth;
-          const seekTime = (clickPositionX / progressBarWidth) * duration;
-          audioRef.current.currentTime = seekTime;
-      }
-    };
-  
-    const togglePlayPause = () => {
-      if (audioRef.current) {
-        if (isPlaying) {
-          audioRef.current.pause();
-        } else {
-          audioRef.current.play();
-        }
-        setIsPlaying(!isPlaying);
-      }
-    };
-  
-    const handleRewind = () => {
-      if (audioRef.current) {
-        audioRef.current.currentTime -= 10;
-      }
-    };
-  
-    const handleForward = () => {
-      if (audioRef.current) {
-        audioRef.current.currentTime += 10;
-      }
-    };
-  
-    const handleVolumeChange = (value: number[]) => {
-      if (audioRef.current) {
-        const newVolume = value[0];
-        setVolume(newVolume);
-        audioRef.current.volume = newVolume;
-      }
-    };
-  
-    const handlePlaybackRateChange = (rate: number) => {
-      if (audioRef.current) {
-        setPlaybackRate(rate);
-        audioRef.current.playbackRate = rate;
-      }
-    };
-  
-    return (
-      <Card className="flex flex-col">
-        <CardHeader>
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border">
-            <Image
-              src={book.coverImage}
-              alt={`Cover of ${book.title}`}
-              fill
-              className="object-cover"
-              data-ai-hint="book cover"
-            />
-          </div>
-        </CardHeader>
-        <CardContent className="flex-1 space-y-4">
-          <CardTitle className="text-xl mb-2">{book.title}</CardTitle>
-          <p className="text-sm text-muted-foreground">{book.description}</p>
-          <div className="space-y-3 rounded-lg border p-3">
-            <audio
-              ref={audioRef}
-              src={book.audioUrl}
-              onTimeUpdate={handleTimeUpdate}
-              onLoadedMetadata={handleLoadedMetadata}
-              onProgress={handleProgress}
-              onPlay={() => setIsPlaying(true)}
-              onPause={() => setIsPlaying(false)}
-              onEnded={() => setIsPlaying(false)}
-              preload="metadata"
-            />
-            
-            <div className="relative w-full h-2 cursor-pointer" onClick={handleSeek}>
-                <Progress value={buffered} className="w-full absolute h-full bg-secondary" />
-                <Progress value={progress} className="w-full relative" />
-            </div>
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(duration)}</span>
-            </div>
-  
-            <div className="flex items-center justify-between gap-2">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <Timer className="h-5 w-5" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-2">
-                  <div className="flex flex-col gap-1">
-                    {[0.75, 1, 1.25, 1.5, 2].map((rate) => (
-                      <Button key={rate} variant={playbackRate === rate ? 'secondary' : 'ghost'} size="sm" onClick={() => handlePlaybackRateChange(rate)}>
-                        {rate}x
-                      </Button>
-                    ))}
-                  </div>
-                </PopoverContent>
-              </Popover>
-  
-              <div className="flex items-center gap-1">
-                <Button variant="ghost" size="icon" onClick={handleRewind}>
-                  <Rewind className="h-6 w-6" />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-12 w-12" onClick={togglePlayPause}>
-                  {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
-                </Button>
-                <Button variant="ghost" size="icon" onClick={handleForward}>
-                  <FastForward className="h-6 w-6" />
-                </Button>
-              </div>
-  
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    {volume === 0 ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-32 p-2">
-                   <Slider
-                    min={0}
-                    max={1}
-                    step={0.05}
-                    value={[volume]}
-                    onValueChange={handleVolumeChange}
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
-  
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
-          <Button asChild className="w-full">
-              <Link href={`/books/viewer?pdfUrl=${encodeURIComponent(book.pdfUrl)}&page=${pdfPage}`}>
-                  <BookOpen className="mr-2" /> {pdfPage > 0 ? 'Resume Reading' : 'Read Now'}
-              </Link>
-          </Button>
-          <Button asChild variant="outline" className="w-full">
-            <a href={book.pdfUrl} download={`${book.title.replace(/\s/g, '-')}.pdf`}>
-              <Download className="mr-2" /> Download
-            </a>
-          </Button>
-        </CardFooter>
-      </Card>
-    );
-  }
+function BookCard({ book }: { book: (typeof books)[0] }) {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [progress, setProgress] = useState(0);
+  const [buffered, setBuffered] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const [playbackRate, setPlaybackRate] = useState(1);
+  const [pdfPage, setPdfPage] = useState(0);
 
+  const storageKeyAudio = `book_progress_audio_${book.title}`;
+  const storageKeyPdf = `book_progress_pdf_${book.title}`;
+
+  useEffect(() => {
+    const savedAudioTime = localStorage.getItem(storageKeyAudio);
+    if (savedAudioTime && audioRef.current) {
+        audioRef.current.currentTime = parseFloat(savedAudioTime);
+    }
+    const savedPdfPage = localStorage.getItem(storageKeyPdf);
+    if (savedPdfPage) {
+        setPdfPage(parseInt(savedPdfPage, 10));
+    }
+  }, [storageKeyAudio, storageKeyPdf]);
+
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      const { currentTime, duration } = audioRef.current;
+      setCurrentTime(currentTime);
+      setProgress(duration > 0 ? (currentTime / duration) * 100 : 0);
+      localStorage.setItem(storageKeyAudio, currentTime.toString());
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const handleProgress = () => {
+    if (audioRef.current && audioRef.current.buffered.length > 0) {
+      const bufferedEnd = audioRef.current.buffered.end(audioRef.current.buffered.length - 1);
+      const duration = audioRef.current.duration;
+      if (duration > 0) {
+        setBuffered((bufferedEnd / duration) * 100);
+      }
+    }
+  };
+
+  const handleSeek = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (audioRef.current && duration > 0) {
+        const progressBar = event.currentTarget;
+        const clickPositionX = event.clientX - progressBar.getBoundingClientRect().left;
+        const progressBarWidth = progressBar.offsetWidth;
+        const seekTime = (clickPositionX / progressBarWidth) * duration;
+        audioRef.current.currentTime = seekTime;
+    }
+  };
+
+  const togglePlayPause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleRewind = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime -= 10;
+    }
+  };
+
+  const handleForward = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime += 10;
+    }
+  };
+
+  const handleVolumeChange = (value: number[]) => {
+    if (audioRef.current) {
+      const newVolume = value[0];
+      setVolume(newVolume);
+      audioRef.current.volume = newVolume;
+    }
+  };
+
+  const handlePlaybackRateChange = (rate: number) => {
+    if (audioRef.current) {
+      setPlaybackRate(rate);
+      audioRef.current.playbackRate = rate;
+    }
+  };
+
+  return (
+    <Card className="flex flex-col">
+      <CardHeader>
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border">
+          <Image
+            src={book.coverImage}
+            alt={`Cover of ${book.title}`}
+            fill
+            className="object-cover"
+            data-ai-hint="book cover"
+          />
+        </div>
+      </CardHeader>
+      <CardContent className="flex-1 space-y-4">
+        <CardTitle className="text-xl mb-2">{book.title}</CardTitle>
+        <p className="text-sm text-muted-foreground">{book.description}</p>
+        <div className="space-y-3 rounded-lg border p-3">
+          <audio
+            ref={audioRef}
+            src={book.audioUrl}
+            onTimeUpdate={handleTimeUpdate}
+            onLoadedMetadata={handleLoadedMetadata}
+            onProgress={handleProgress}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            onEnded={() => setIsPlaying(false)}
+            preload="metadata"
+          />
+          
+          <div className="relative w-full h-2 cursor-pointer" onClick={handleSeek}>
+              <Progress value={buffered} className="w-full absolute h-full bg-secondary" />
+              <Progress value={progress} className="w-full relative" />
+          </div>
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>{formatTime(currentTime)}</span>
+            <span>{formatTime(duration)}</span>
+          </div>
+
+          <div className="flex items-center justify-between gap-2">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Timer className="h-5 w-5" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-2">
+                <div className="flex flex-col gap-1">
+                  {[0.75, 1, 1.25, 1.5, 2].map((rate) => (
+                    <Button key={rate} variant={playbackRate === rate ? 'secondary' : 'ghost'} size="sm" onClick={() => handlePlaybackRateChange(rate)}>
+                      {rate}x
+                    </Button>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
+
+            <div className="flex items-center gap-1">
+              <Button variant="ghost" size="icon" onClick={handleRewind}>
+                <Rewind className="h-6 w-6" />
+              </Button>
+              <Button variant="ghost" size="icon" className="h-12 w-12" onClick={togglePlayPause}>
+                {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
+              </Button>
+              <Button variant="ghost" size="icon" onClick={handleForward}>
+                <FastForward className="h-6 w-6" />
+              </Button>
+            </div>
+
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  {volume === 0 ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-32 p-2">
+                 <Slider
+                  min={0}
+                  max={1}
+                  step={0.05}
+                  value={[volume]}
+                  onValueChange={handleVolumeChange}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+        </div>
+      </CardContent>
+      <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
+        <Button asChild className="w-full">
+            <Link href={`/books/viewer?pdfUrl=${encodeURIComponent(book.pdfUrl)}&page=${pdfPage}`}>
+                <BookOpen className="mr-2" /> {pdfPage > 0 ? 'Resume Reading' : 'Read Now'}
+            </Link>
+        </Button>
+        <Button asChild variant="outline" className="w-full">
+          <a href={book.pdfUrl} download={`${book.title.replace(/\s/g, '-')}.pdf`}>
+            <Download className="mr-2" /> Download
+          </a>
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+}
+
+
+export default function BooksPage() {
   return (
     <AppLayout>
       <div className="flex-1 space-y-8 p-8 pt-6">
@@ -244,4 +244,3 @@ export default function BooksPage() {
     </AppLayout>
   );
 }
-
