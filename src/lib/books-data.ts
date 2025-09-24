@@ -13,30 +13,6 @@ export const books = [
         pdfUrl: 'https://archive.org/details/structureinterpr00abel'
     },
     {
-        title: 'The Product Manager\'s Guide',
-        description: 'An essential handbook for product managers, covering everything from ideation and validation to launch and iteration.',
-        coverImage: 'https://picsum.photos/seed/book3/600/800',
-        pdfUrl: '#'
-    },
-    {
-        title: 'AI and Machine Learning Today',
-        description: 'Explore the current landscape of Artificial Intelligence and Machine Learning, with insights from industry experts.',
-        coverImage: 'https://picsum.photos/seed/book4/600/800',
-        pdfUrl: '#'
-    },
-    {
-        title: 'Cybersecurity for Everyone',
-        description: 'Learn how to protect yourself and your organization from common cyber threats with this easy-to-understand guide.',
-        coverImage: 'https://picsum.photos/seed/book5/600/800',
-        pdfUrl: '#'
-    },
-    {
-        title: 'The Startup Playbook',
-        description: 'Your step-by-step guide to building a successful startup from the ground up, written by a seasoned entrepreneur.',
-        coverImage: 'https://picsum.photos/seed/book6/600/800',
-        pdfUrl: '#'
-    },
-    {
         title: 'Rich Dad Poor Dad',
         description: 'This book shatters the myth that you need to earn a high income to be rich and explains the difference between working for money and having your money work for you.',
         coverImage: 'https://picsum.photos/seed/book7/600/800',
