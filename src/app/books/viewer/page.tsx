@@ -2,7 +2,7 @@
 'use client';
 
 import 'promise.withresolvers';
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Document, Page, pdfjs } from 'react-pdf';
 import HTMLFlipBook from 'react-pageflip';
@@ -39,10 +39,21 @@ PDFPage.displayName = 'PDFPage';
 function FlipbookViewer() {
   const searchParams = useSearchParams();
   const pdfUrl = searchParams.get('pdfUrl');
+  const startPage = searchParams.get('page');
+
   const [numPages, setNumPages] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [scale, setScale] = useState(1);
   const flipBookRef = React.useRef<any>(null);
+
+  const storageKey = `book_progress_pdf_${pdfUrl}`;
+
+  useEffect(() => {
+    const pageNumber = parseInt(startPage || '0', 10);
+    if (pageNumber > 0 && flipBookRef.current) {
+        flipBookRef.current.pageFlip().turnToPage(pageNumber);
+    }
+  }, [startPage, numPages]);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
@@ -50,6 +61,7 @@ function FlipbookViewer() {
 
   const handleFlip = (e: any) => {
     setCurrentPage(e.data);
+    localStorage.setItem(storageKey, e.data.toString());
   };
   
   const goToNextPage = () => {
@@ -80,7 +92,7 @@ function FlipbookViewer() {
         <div className="flex-grow flex items-center justify-center">
           <div style={{ transform: `scale(${scale})`, transformOrigin: 'center' }} className="transition-transform duration-300">
             <Document
-              file={pdfUrl}
+              file={{url: pdfUrl}}
               onLoadSuccess={onDocumentLoadSuccess}
               loading={<Skeleton className="w-[600px] h-[800px] rounded-md" />}
               error={<p>Failed to load PDF. This may be due to cross-origin restrictions. Try downloading the file and opening it locally.</p>}
@@ -99,6 +111,7 @@ function FlipbookViewer() {
                 onFlip={handleFlip}
                 ref={flipBookRef}
                 className="mx-auto"
+                startPage={parseInt(startPage || '0', 10)}
               >
                 <PageCover>
                   <div className="p-4 text-center">
@@ -123,6 +136,10 @@ function FlipbookViewer() {
             <Button variant="outline" onClick={goToPrevPage} disabled={currentPage === 0}><ChevronLeft /> Prev</Button>
             <span className="text-sm text-muted-foreground">Page {currentPage} of {numPages}</span>
             <Button variant="outline" onClick={goToNextPage} disabled={!numPages || currentPage >= numPages -1}>Next <ChevronRight /></Button>
+        </div>
+        <div className="flex items-center justify-center gap-2 pb-4">
+            <Button variant="outline" size="icon" onClick={() => setScale(s => s * 1.2)}><ZoomIn /></Button>
+            <Button variant="outline" size="icon" onClick={() => setScale(s => s / 1.2)}><ZoomOut /></Button>
         </div>
       </div>
     </AppLayout>

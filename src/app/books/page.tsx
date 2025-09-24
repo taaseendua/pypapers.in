@@ -2,13 +2,14 @@
 'use client';
 
 import { AppLayout } from '@/components/app-layout';
-import { Book, Download, BookOpen } from 'lucide-react';
+import { Book, Download, BookOpen, Podcast } from 'lucide-react';
 import { books } from '@/lib/books-data';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 
 function formatTime(seconds: number) {
   if (isNaN(seconds) || seconds === Infinity) {
@@ -26,6 +27,21 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingSeconds, setLoadingSeconds] = useState(0);
+  const [pdfPage, setPdfPage] = useState(0);
+
+  const storageKeyAudio = `book_progress_audio_${book.title}`;
+  const storageKeyPdf = `book_progress_pdf_${book.title}`;
+
+  useEffect(() => {
+    const savedAudioTime = localStorage.getItem(storageKeyAudio);
+    if (savedAudioTime && audioRef.current) {
+        audioRef.current.currentTime = parseFloat(savedAudioTime);
+    }
+    const savedPdfPage = localStorage.getItem(storageKeyPdf);
+    if (savedPdfPage) {
+        setPdfPage(parseInt(savedPdfPage, 10));
+    }
+  }, [storageKeyAudio, storageKeyPdf]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
@@ -35,7 +51,6 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
       }, 1000);
     } else if (!isLoading && loadingSeconds !== 0) {
       if (interval) clearInterval(interval);
-      setLoadingSeconds(0);
     }
     return () => {
       if (interval) clearInterval(interval);
@@ -47,6 +62,7 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
       const { currentTime, duration } = audioRef.current;
       setCurrentTime(currentTime);
       setProgress(duration > 0 ? (currentTime / duration) * 100 : 0);
+      localStorage.setItem(storageKeyAudio, currentTime.toString());
     }
   };
 
@@ -92,7 +108,9 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
             Your browser does not support the audio element.
           </audio>
            {isLoading ? (
-            <div className="text-sm text-muted-foreground text-center py-4">Loading audio... ({loadingSeconds}s)</div>
+            <div className="text-sm text-muted-foreground text-center py-4">
+                {duration > 0 ? `Loading... (${formatTime(currentTime)} / ${formatTime(duration)})` : `Loading audio... (${loadingSeconds}s)`}
+            </div>
           ) : (
             <>
               <Progress value={progress} className="w-full" />
@@ -106,9 +124,9 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
       </CardContent>
       <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
         <Button asChild className="w-full">
-          <a href={book.pdfUrl} target="_blank" rel="noopener noreferrer">
-            <BookOpen className="mr-2" /> Read Now
-          </a>
+            <Link href={`/books/viewer?pdfUrl=${encodeURIComponent(book.pdfUrl)}&page=${pdfPage}`}>
+                <BookOpen className="mr-2" /> {pdfPage > 0 ? 'Resume Reading' : 'Read Now'}
+            </Link>
         </Button>
         <Button asChild variant="outline" className="w-full">
           <a href={book.pdfUrl} download={`${book.title.replace(/\s/g, '-')}.pdf`}>
@@ -138,3 +156,4 @@ export default function BooksPage() {
     </AppLayout>
   );
 }
+
