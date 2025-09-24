@@ -4,6 +4,7 @@ import { AppLayout } from '@/components/app-layout';
 import { Book, Download } from 'lucide-react';
 import { books } from '@/lib/books-data';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -35,9 +36,9 @@ export default function BooksPage() {
               </CardContent>
               <CardFooter>
                 <Button asChild className="w-full">
-                  <a href={book.pdfUrl} target="_blank" rel="noopener noreferrer">
+                  <Link href={`/books/viewer?pdfUrl=${encodeURIComponent(book.pdfUrl)}`}>
                     <Download className="mr-2" /> Read Now
-                  </a>
+                  </Link>
                 </Button>
               </CardFooter>
             </Card>
