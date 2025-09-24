@@ -11,6 +11,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { KeyRound, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdBanner } from '@/components/ad-banner';
+import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 
 export default function PasswordGeneratorPage() {
   const [length, setLength] = useState(16);
@@ -131,7 +132,10 @@ export default function PasswordGeneratorPage() {
           </Card>
         </div>
 
-        <AdBanner />
+        <div className="space-y-8">
+          <AdBanner />
+          <InArticleAdBanner />
+        </div>
       </div>
     </AppLayout>
   );

@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { format, differenceInYears, differenceInMonths, differenceInDays, addYears, addMonths } from 'date-fns';
 import { Calendar as CalendarIcon, Cake } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
+import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 
 export default function AgeCalculatorPage() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -88,7 +89,10 @@ export default function AgeCalculatorPage() {
           )}
         </div>
 
-        <AdBanner />
+        <div className="space-y-8">
+          <AdBanner />
+          <InArticleAdBanner />
+        </div>
 
       </div>
     </AppLayout>
