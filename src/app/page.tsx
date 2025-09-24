@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { QrCode, Cake, Calculator, KeyRound } from 'lucide-react';
+import { QrCode, Cake, Calculator, KeyRound, Pilcrow } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 
 const tools = [
@@ -32,6 +32,13 @@ const tools = [
     href: '/password-generator',
     icon: <KeyRound className="h-10 w-10 text-yellow-500" />,
     bgColor: 'bg-yellow-100',
+  },
+  {
+    title: 'Word Counter',
+    description: 'Count words, characters, sentences, and paragraphs.',
+    href: '/word-counter',
+    icon: <Pilcrow className="h-10 w-10 text-purple-500" />,
+    bgColor: 'bg-purple-100',
   },
 ];
 
