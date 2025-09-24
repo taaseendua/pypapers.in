@@ -33,11 +33,13 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
   const [volume, setVolume] = useState(1);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [pdfPage, setPdfPage] = useState(0);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   const storageKeyAudio = `book_progress_audio_${book.title}`;
   const storageKeyPdf = `book_progress_pdf_${book.title}`;
 
   useEffect(() => {
+    setIsHydrated(true);
     const savedAudioTime = localStorage.getItem(storageKeyAudio);
     if (savedAudioTime && audioRef.current) {
         audioRef.current.currentTime = parseFloat(savedAudioTime);
@@ -138,89 +140,97 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
       <CardContent className="flex-1 space-y-4">
         <CardTitle className="text-xl mb-2">{book.title}</CardTitle>
         <p className="text-sm text-muted-foreground">{book.description}</p>
-        <div className="space-y-3 rounded-lg border p-3">
-          <audio
-            ref={audioRef}
-            src={book.audioUrl}
-            onTimeUpdate={handleTimeUpdate}
-            onLoadedMetadata={handleLoadedMetadata}
-            onProgress={handleProgress}
-            onPlay={() => setIsPlaying(true)}
-            onPause={() => setIsPlaying(false)}
-            onEnded={() => setIsPlaying(false)}
-            preload="metadata"
-          />
-          
-          <div className="relative w-full h-2 cursor-pointer" onClick={handleSeek}>
-              <Progress value={buffered} className="w-full absolute h-full bg-secondary" />
-              <Progress value={progress} className="w-full relative" />
-          </div>
-          <div className="flex justify-between text-xs text-muted-foreground">
-            <span>{formatTime(currentTime)}</span>
-            <span>{formatTime(duration)}</span>
-          </div>
-
-          <div className="flex items-center justify-between gap-2">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Timer className="h-5 w-5" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-2">
-                <div className="flex flex-col gap-1">
-                  {[0.75, 1, 1.25, 1.5, 2].map((rate) => (
-                    <Button key={rate} variant={playbackRate === rate ? 'secondary' : 'ghost'} size="sm" onClick={() => handlePlaybackRateChange(rate)}>
-                      {rate}x
-                    </Button>
-                  ))}
-                </div>
-              </PopoverContent>
-            </Popover>
-
-            <div className="flex items-center gap-1">
-              <Button variant="ghost" size="icon" onClick={handleRewind}>
-                <Rewind className="h-6 w-6" />
-              </Button>
-              <Button variant="ghost" size="icon" className="h-12 w-12" onClick={togglePlayPause}>
-                {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
-              </Button>
-              <Button variant="ghost" size="icon" onClick={handleForward}>
-                <FastForward className="h-6 w-6" />
-              </Button>
+        {isHydrated && (
+          <div className="space-y-3 rounded-lg border p-3">
+            <audio
+              ref={audioRef}
+              src={book.audioUrl}
+              onTimeUpdate={handleTimeUpdate}
+              onLoadedMetadata={handleLoadedMetadata}
+              onProgress={handleProgress}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              onEnded={() => setIsPlaying(false)}
+              preload="metadata"
+            />
+            
+            <div className="relative w-full h-2 cursor-pointer" onClick={handleSeek}>
+                <Progress value={buffered} className="w-full absolute h-full bg-secondary" />
+                <Progress value={progress} className="w-full relative" />
+            </div>
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
             </div>
 
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  {volume === 0 ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-32 p-2">
-                 <Slider
-                  min={0}
-                  max={1}
-                  step={0.05}
-                  value={[volume]}
-                  onValueChange={handleVolumeChange}
-                />
-              </PopoverContent>
-            </Popover>
-          </div>
+            <div className="flex items-center justify-between gap-2">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Timer className="h-5 w-5" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-2">
+                  <div className="flex flex-col gap-1">
+                    {[0.75, 1, 1.25, 1.5, 2].map((rate) => (
+                      <Button key={rate} variant={playbackRate === rate ? 'secondary' : 'ghost'} size="sm" onClick={() => handlePlaybackRateChange(rate)}>
+                        {rate}x
+                      </Button>
+                    ))}
+                  </div>
+                </PopoverContent>
+              </Popover>
 
-        </div>
+              <div className="flex items-center gap-1">
+                <Button variant="ghost" size="icon" onClick={handleRewind}>
+                  <Rewind className="h-6 w-6" />
+                </Button>
+                <Button variant="ghost" size="icon" className="h-12 w-12" onClick={togglePlayPause}>
+                  {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
+                </Button>
+                <Button variant="ghost" size="icon" onClick={handleForward}>
+                  <FastForward className="h-6 w-6" />
+                </Button>
+              </div>
+
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    {volume === 0 ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-32 p-2">
+                   <Slider
+                    min={0}
+                    max={1}
+                    step={0.05}
+                    value={[volume]}
+                    onValueChange={handleVolumeChange}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+
+          </div>
+        )}
       </CardContent>
       <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
-        <Button asChild className="w-full">
-            <Link href={`/books/viewer?pdfUrl=${encodeURIComponent(book.pdfUrl)}&page=${pdfPage}`}>
-                <BookOpen className="mr-2" /> {pdfPage > 0 ? 'Resume Reading' : 'Read Now'}
-            </Link>
-        </Button>
-        <Button asChild variant="outline" className="w-full">
-          <a href={book.pdfUrl} download={`${book.title.replace(/\s/g, '-')}.pdf`}>
-            <Download className="mr-2" /> Download
-          </a>
-        </Button>
+        {isHydrated ? (
+          <>
+            <Button asChild className="w-full">
+                <Link href={`/books/viewer?pdfUrl=${encodeURIComponent(book.pdfUrl)}&page=${pdfPage}`}>
+                    <BookOpen className="mr-2" /> {pdfPage > 0 ? 'Resume Reading' : 'Read Now'}
+                </Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full">
+              <a href={book.pdfUrl} download={`${book.title.replace(/\s/g, '-')}.pdf`}>
+                <Download className="mr-2" /> Download
+              </a>
+            </Button>
+          </>
+        ) : (
+          <div className="h-10 w-full"></div> // Placeholder for buttons
+        )}
       </CardFooter>
     </Card>
   );
