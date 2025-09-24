@@ -34,5 +34,11 @@ export const books = [
         description: 'Your step-by-step guide to building a successful startup from the ground up, written by a seasoned entrepreneur.',
         coverImage: 'https://picsum.photos/seed/book6/600/800',
         pdfUrl: '#'
+    },
+    {
+        title: 'Rich Dad Poor Dad',
+        description: 'This book shatters the myth that you need to earn a high income to be rich and explains the difference between working for money and having your money work for you.',
+        coverImage: 'https://picsum.photos/seed/book7/600/800',
+        pdfUrl: '#'
     }
 ];
