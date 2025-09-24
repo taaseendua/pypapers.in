@@ -2,8 +2,8 @@
 
 import React from 'react';
 import {
-  Wand2,
-  Wrench,
+  Home,
+  QrCode,
 } from 'lucide-react';
 
 import {
@@ -15,19 +15,20 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarFooter,
   SidebarInset,
 } from '@/components/ui/sidebar';
 import { Logo } from './logo';
-import { AiRecommender } from './ai-recommender';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+
 
 const navItems = [
-  { id: 'tool', label: 'Tools', icon: Wrench },
+  { id: '/', label: 'Home', icon: Home, href: '/' },
+  { id: '/qr-code-generator', label: 'QR Code Generator', icon: QrCode, href: '/qr-code-generator' },
 ];
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-  const [activeCategory, setActiveCategory] = React.useState('tool');
-  const [isAiRecommenderOpen, setIsAiRecommenderOpen] = React.useState(false);
+  const pathname = usePathname();
 
   return (
     <SidebarProvider>
@@ -42,36 +43,23 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <SidebarMenu>
             {navItems.map((item) => (
               <SidebarMenuItem key={item.id}>
-                <SidebarMenuButton
-                  onClick={() => setActiveCategory(item.id)}
-                  isActive={activeCategory === item.id}
-                  tooltip={item.label}
-                >
-                  <item.icon />
-                  <span>{item.label}</span>
-                </SidebarMenuButton>
+                <Link href={item.href} className="w-full">
+                  <SidebarMenuButton
+                    isActive={pathname === item.id}
+                    tooltip={item.label}
+                  >
+                    <item.icon />
+                    <span>{item.label}</span>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
         </SidebarContent>
-        <SidebarFooter>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton onClick={() => setIsAiRecommenderOpen(true)}>
-                <Wand2 className="text-accent" />
-                <span>AI Recommender</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        {React.cloneElement(children as React.ReactElement, { activeCategory })}
+        {children}
       </SidebarInset>
-      <AiRecommender
-        open={isAiRecommenderOpen}
-        onOpenChange={setIsAiRecommenderOpen}
-      />
     </SidebarProvider>
   );
 }

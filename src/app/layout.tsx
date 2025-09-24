@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'My Tools Hub',
-  description: 'Discover tools tailored for you.',
+  title: 'Utility Tools',
+  description: 'A collection of handy utility tools.',
 };
 
 export default function RootLayout({
