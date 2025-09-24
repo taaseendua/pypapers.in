@@ -22,7 +22,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <Link href="/" className="mr-auto">
             <Logo />
           </Link>
-          <nav className="hidden md:flex gap-6 items-center">
+          <nav className="flex gap-6 items-center">
             <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
               Tools
             </Link>
