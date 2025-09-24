@@ -2,7 +2,7 @@
 'use client';
 
 import { AppLayout } from '@/components/app-layout';
-import { Book, Download, BookOpen } from 'lucide-react';
+import { Book, Download, BookOpen, Mic } from 'lucide-react';
 import { books } from '@/lib/books-data';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,20 +33,16 @@ export default function BooksPage() {
               <CardContent className="flex-1 space-y-4">
                 <CardTitle className="text-xl mb-2">{book.title}</CardTitle>
                 <p className="text-sm text-muted-foreground">{book.description}</p>
-                 {book.audioUrl && (
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-sm">Listen to the Podcast</h4>
-                    <audio controls className="w-full">
-                      <source src={book.audioUrl} type="audio/mpeg" />
-                      Your browser does not support the audio element.
-                    </audio>
-                  </div>
-                )}
               </CardContent>
               <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
                 <Button asChild className="w-full">
                   <a href={book.pdfUrl} target="_blank" rel="noopener noreferrer">
                     <BookOpen className="mr-2" /> Read Now
+                  </a>
+                </Button>
+                 <Button asChild className="w-full">
+                  <a href={book.audioUrl} target="_blank" rel="noopener noreferrer">
+                    <Mic className="mr-2" /> Listen Now
                   </a>
                 </Button>
                 <Button asChild variant="outline" className="w-full">

@@ -83,7 +83,7 @@ function FlipbookViewer() {
               file={pdfUrl}
               onLoadSuccess={onDocumentLoadSuccess}
               loading={<Skeleton className="w-[600px] h-[800px] rounded-md" />}
-              error={<p>Failed to load PDF.</p>}
+              error={<p>Failed to load PDF. This may be due to cross-origin restrictions. Try downloading the file and opening it locally.</p>}
             >
               <HTMLFlipBook
                 width={600}
