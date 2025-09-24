@@ -33,16 +33,15 @@ export default function BooksPage() {
               <CardContent className="flex-1 space-y-4">
                 <CardTitle className="text-xl mb-2">{book.title}</CardTitle>
                 <p className="text-sm text-muted-foreground">{book.description}</p>
+                <audio controls className="w-full">
+                  <source src={book.audioUrl} type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
               </CardContent>
               <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
                 <Button asChild className="w-full">
-                  <a href={book.pdfUrl} target="_blank" rel="noopener noreferrer">
+                  <a href={`/books/viewer?pdfUrl=${encodeURIComponent(book.pdfUrl)}`}>
                     <BookOpen className="mr-2" /> Read Now
-                  </a>
-                </Button>
-                 <Button asChild className="w-full">
-                  <a href={book.audioUrl} target="_blank" rel="noopener noreferrer">
-                    <Mic className="mr-2" /> Listen Now
                   </a>
                 </Button>
                 <Button asChild variant="outline" className="w-full">
