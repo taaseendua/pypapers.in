@@ -2,7 +2,7 @@
 'use client';
 
 import { AppLayout } from '@/components/app-layout';
-import { Book, Download, BookOpen, Podcast } from 'lucide-react';
+import { Book, Download, BookOpen } from 'lucide-react';
 import { books } from '@/lib/books-data';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,10 +23,10 @@ function formatTime(seconds: number) {
 function BookCard({ book }: { book: (typeof books)[0] }) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [progress, setProgress] = useState(0);
+  const [buffered, setBuffered] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [loadingSeconds, setLoadingSeconds] = useState(0);
   const [pdfPage, setPdfPage] = useState(0);
 
   const storageKeyAudio = `book_progress_audio_${book.title}`;
@@ -43,19 +43,6 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
     }
   }, [storageKeyAudio, storageKeyPdf]);
 
-  useEffect(() => {
-    let interval: NodeJS.Timeout | undefined;
-    if (isLoading) {
-      interval = setInterval(() => {
-        setLoadingSeconds((prevSeconds) => prevSeconds + 1);
-      }, 1000);
-    } else if (!isLoading && loadingSeconds !== 0) {
-      if (interval) clearInterval(interval);
-    }
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [isLoading, loadingSeconds]);
 
   const handleTimeUpdate = () => {
     if (audioRef.current) {
@@ -78,6 +65,27 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
       setDuration(audioRef.current.duration);
     }
   }
+
+  const handleProgress = () => {
+    if (audioRef.current && audioRef.current.buffered.length > 0) {
+      const bufferedEnd = audioRef.current.buffered.end(audioRef.current.buffered.length - 1);
+      const duration = audioRef.current.duration;
+      if (duration > 0) {
+        setBuffered((bufferedEnd / duration) * 100);
+      }
+    }
+  };
+
+  const handleSeek = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (audioRef.current && duration > 0) {
+        const progressBar = event.currentTarget;
+        const clickPositionX = event.clientX - progressBar.getBoundingClientRect().left;
+        const progressBarWidth = progressBar.offsetWidth;
+        const seekTime = (clickPositionX / progressBarWidth) * duration;
+        audioRef.current.currentTime = seekTime;
+    }
+  };
+
 
   return (
     <Card className="flex flex-col">
@@ -103,23 +111,21 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
             onCanPlay={handleCanPlay}
+            onProgress={handleProgress}
+            preload="metadata"
           >
             <source src={book.audioUrl} type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
-           {isLoading ? (
-            <div className="text-sm text-muted-foreground text-center py-4">
-                {duration > 0 ? `Loading... (${formatTime(currentTime)} / ${formatTime(duration)})` : `Loading audio... (${loadingSeconds}s)`}
+          
+            <div className="relative w-full cursor-pointer" onClick={handleSeek}>
+                <Progress value={buffered} className="w-full absolute h-full bg-secondary" />
+                <Progress value={progress} className="w-full relative" />
             </div>
-          ) : (
-            <>
-              <Progress value={progress} className="w-full" />
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <span>{formatTime(currentTime)}</span>
-                <span>{formatTime(duration)}</span>
-              </div>
-            </>
-          )}
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
         </div>
       </CardContent>
       <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
@@ -156,4 +162,3 @@ export default function BooksPage() {
     </AppLayout>
   );
 }
-
