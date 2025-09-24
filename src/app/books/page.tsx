@@ -7,6 +7,85 @@ import { books } from '@/lib/books-data';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { useState, useRef } from 'react';
+
+function formatTime(seconds: number) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
+
+function BookCard({ book }: { book: (typeof books)[0] }) {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      const { currentTime, duration } = audioRef.current;
+      setCurrentTime(currentTime);
+      setProgress(duration > 0 ? (currentTime / duration) * 100 : 0);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  return (
+    <Card className="flex flex-col">
+      <CardHeader>
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border">
+          <Image
+            src={book.coverImage}
+            alt={`Cover of ${book.title}`}
+            fill
+            className="object-cover"
+            data-ai-hint="book cover"
+          />
+        </div>
+      </CardHeader>
+      <CardContent className="flex-1 space-y-4">
+        <CardTitle className="text-xl mb-2">{book.title}</CardTitle>
+        <p className="text-sm text-muted-foreground">{book.description}</p>
+        <div className="space-y-2">
+          <audio
+            ref={audioRef}
+            controls
+            className="w-full"
+            onTimeUpdate={handleTimeUpdate}
+            onLoadedMetadata={handleLoadedMetadata}
+          >
+            <source src={book.audioUrl} type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+          <Progress value={progress} className="w-full" />
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>{formatTime(currentTime)}</span>
+            <span>{formatTime(duration)}</span>
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
+        <Button asChild className="w-full">
+          <a href={book.pdfUrl} target="_blank" rel="noopener noreferrer">
+            <BookOpen className="mr-2" /> Read Now
+          </a>
+        </Button>
+        <Button asChild variant="outline" className="w-full">
+          <a href={book.pdfUrl} download={`${book.title.replace(/\s/g, '-')}.pdf`}>
+            <Download className="mr-2" /> Download
+          </a>
+        </Button>
+      </CardFooter>
+    </Card>
+  );
+}
+
 
 export default function BooksPage() {
   return (
@@ -18,39 +97,7 @@ export default function BooksPage() {
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {books.map((book) => (
-            <Card key={book.title} className="flex flex-col">
-              <CardHeader>
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg border">
-                  <Image
-                    src={book.coverImage}
-                    alt={`Cover of ${book.title}`}
-                    fill
-                    className="object-cover"
-                    data-ai-hint="book cover"
-                  />
-                </div>
-              </CardHeader>
-              <CardContent className="flex-1 space-y-4">
-                <CardTitle className="text-xl mb-2">{book.title}</CardTitle>
-                <p className="text-sm text-muted-foreground">{book.description}</p>
-                <audio controls className="w-full">
-                  <source src={book.audioUrl} type="audio/mpeg" />
-                  Your browser does not support the audio element.
-                </audio>
-              </CardContent>
-              <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
-                <Button asChild className="w-full">
-                  <a href={`/books/viewer?pdfUrl=${encodeURIComponent(book.pdfUrl)}`}>
-                    <BookOpen className="mr-2" /> Read Now
-                  </a>
-                </Button>
-                <Button asChild variant="outline" className="w-full">
-                  <a href={book.pdfUrl} download={`${book.title.replace(/\s/g, '-')}.pdf`}>
-                    <Download className="mr-2" /> Download
-                  </a>
-                </Button>
-              </CardFooter>
-            </Card>
+            <BookCard key={book.title} book={book} />
           ))}
         </div>
       </div>
