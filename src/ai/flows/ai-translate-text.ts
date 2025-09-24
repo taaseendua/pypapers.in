@@ -17,5 +17,5 @@ export async function translateText(text: string, targetLanguage: string) {
       schema: z.string().describe('The translated text.'),
     },
   });
-  return output!;
+  return output || '';
 }
