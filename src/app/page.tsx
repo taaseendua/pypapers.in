@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles } from 'lucide-react';
+import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 
 const tools = [
@@ -53,6 +53,13 @@ const tools = [
     href: '/ai-content-recommender',
     icon: <Sparkles className="h-10 w-10 text-indigo-500" />,
     bgColor: 'bg-indigo-100',
+  },
+  {
+    title: 'Image Resizer',
+    description: 'Resize images to your desired dimensions.',
+    href: '/image-resizer',
+    icon: <Crop className="h-10 w-10 text-orange-500" />,
+    bgColor: 'bg-orange-100',
   }
 ];
 
