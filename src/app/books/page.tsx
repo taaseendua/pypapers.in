@@ -2,7 +2,7 @@
 'use client';
 
 import { AppLayout } from '@/components/app-layout';
-import { Book, Download, BookOpen } from 'lucide-react';
+import { Book, Download, BookOpen, Play, Pause, Rewind, FastForward, Volume2, VolumeX, Timer } from 'lucide-react';
 import { books } from '@/lib/books-data';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { Slider } from '@/components/ui/slider';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
 function formatTime(seconds: number) {
   if (isNaN(seconds) || seconds === Infinity) {
@@ -26,7 +28,9 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
   const [buffered, setBuffered] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(1);
+  const [playbackRate, setPlaybackRate] = useState(1);
   const [pdfPage, setPdfPage] = useState(0);
 
   const storageKeyAudio = `book_progress_audio_${book.title}`;
@@ -58,13 +62,6 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
       setDuration(audioRef.current.duration);
     }
   };
-  
-  const handleCanPlay = () => {
-    setIsLoading(false);
-    if (audioRef.current) {
-      setDuration(audioRef.current.duration);
-    }
-  }
 
   const handleProgress = () => {
     if (audioRef.current && audioRef.current.buffered.length > 0) {
@@ -86,6 +83,43 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
     }
   };
 
+  const togglePlayPause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleRewind = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime -= 10;
+    }
+  };
+
+  const handleForward = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime += 10;
+    }
+  };
+
+  const handleVolumeChange = (value: number[]) => {
+    if (audioRef.current) {
+      const newVolume = value[0];
+      setVolume(newVolume);
+      audioRef.current.volume = newVolume;
+    }
+  };
+
+  const handlePlaybackRateChange = (rate: number) => {
+    if (audioRef.current) {
+      setPlaybackRate(rate);
+      audioRef.current.playbackRate = rate;
+    }
+  };
 
   return (
     <Card className="flex flex-col">
@@ -103,29 +137,76 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
       <CardContent className="flex-1 space-y-4">
         <CardTitle className="text-xl mb-2">{book.title}</CardTitle>
         <p className="text-sm text-muted-foreground">{book.description}</p>
-        <div className="space-y-2">
+        <div className="space-y-3 rounded-lg border p-3">
           <audio
             ref={audioRef}
-            controls
-            className="w-full"
+            src={book.audioUrl}
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
-            onCanPlay={handleCanPlay}
             onProgress={handleProgress}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            onEnded={() => setIsPlaying(false)}
             preload="metadata"
-          >
-            <source src={book.audioUrl} type="audio/mpeg" />
-            Your browser does not support the audio element.
-          </audio>
+          />
           
-            <div className="relative w-full cursor-pointer" onClick={handleSeek}>
-                <Progress value={buffered} className="w-full absolute h-full bg-secondary" />
-                <Progress value={progress} className="w-full relative" />
+          <div className="relative w-full h-2 cursor-pointer" onClick={handleSeek}>
+              <Progress value={buffered} className="w-full absolute h-full bg-secondary" />
+              <Progress value={progress} className="w-full relative" />
+          </div>
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>{formatTime(currentTime)}</span>
+            <span>{formatTime(duration)}</span>
+          </div>
+
+          <div className="flex items-center justify-between gap-2">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Timer className="h-5 w-5" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-2">
+                <div className="flex flex-col gap-1">
+                  {[0.75, 1, 1.25, 1.5, 2].map((rate) => (
+                    <Button key={rate} variant={playbackRate === rate ? 'secondary' : 'ghost'} size="sm" onClick={() => handlePlaybackRateChange(rate)}>
+                      {rate}x
+                    </Button>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
+
+            <div className="flex items-center gap-1">
+              <Button variant="ghost" size="icon" onClick={handleRewind}>
+                <Rewind className="h-6 w-6" />
+              </Button>
+              <Button variant="ghost" size="icon" className="h-12 w-12" onClick={togglePlayPause}>
+                {isPlaying ? <Pause className="h-8 w-8" /> : <Play className="h-8 w-8" />}
+              </Button>
+              <Button variant="ghost" size="icon" onClick={handleForward}>
+                <FastForward className="h-6 w-6" />
+              </Button>
             </div>
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(duration)}</span>
-            </div>
+
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  {volume === 0 ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-32 p-2">
+                 <Slider
+                  min={0}
+                  max={1}
+                  step={0.05}
+                  value={[volume]}
+                  onValueChange={handleVolumeChange}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
         </div>
       </CardContent>
       <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
