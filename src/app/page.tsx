@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { QrCode, Cake, Calculator } from 'lucide-react';
+import { QrCode, Cake, Calculator, KeyRound } from 'lucide-react';
 
 const tools = [
   {
@@ -24,6 +24,13 @@ const tools = [
     href: '/emi-calculator',
     icon: <Calculator className="h-10 w-10 text-green-500" />,
     bgColor: 'bg-green-100',
+  },
+  {
+    title: 'Password Generator',
+    description: 'Generate strong and secure passwords.',
+    href: '/password-generator',
+    icon: <KeyRound className="h-10 w-10 text-yellow-500" />,
+    bgColor: 'bg-yellow-100',
   },
 ];
 
