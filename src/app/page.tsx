@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper } from 'lucide-react';
+import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 
 const tools = [
@@ -47,6 +47,13 @@ const tools = [
     icon: <CaseUpper className="h-10 w-10 text-red-500" />,
     bgColor: 'bg-red-100',
   },
+  {
+    title: 'AI Content Recommender',
+    description: 'Get AI-powered content recommendations.',
+    href: '/ai-content-recommender',
+    icon: <Sparkles className="h-10 w-10 text-indigo-500" />,
+    bgColor: 'bg-indigo-100',
+  }
 ];
 
 export default function Home() {
