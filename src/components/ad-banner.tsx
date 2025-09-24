@@ -1,25 +1,11 @@
+
 'use client';
 
-import { useEffect } from 'react';
 import { Card } from './ui/card';
 
-declare global {
-  interface Window {
-    adsbygoogle: any;
-  }
-}
-
 export function AdBanner() {
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.error(err);
-    }
-  }, []);
-
   return (
-    <Card className="flex items-center justify-center p-4 min-h-[120px]">
+    <Card className="flex items-center justify-center p-4 min-h-[120px] w-full">
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}

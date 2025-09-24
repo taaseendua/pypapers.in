@@ -1,18 +1,28 @@
+
+'use client';
+
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
-
-export const metadata: Metadata = {
-  title: 'Pro Tools',
-  description: 'A collection of handy utility tools.',
-};
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.error(err);
+    }
+  }, [pathname]);
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
