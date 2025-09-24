@@ -11,12 +11,10 @@ declare global {
 
 export function InArticleAdBanner() {
   useEffect(() => {
-    if (window.adsbygoogle) {
-      try {
-        window.adsbygoogle.push({});
-      } catch (err) {
-        console.error(err);
-      }
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.error(err);
     }
   }, []);
 
