@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { QrCode, Cake, Calculator, KeyRound, Pilcrow } from 'lucide-react';
+import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 
 const tools = [
@@ -40,6 +40,13 @@ const tools = [
     icon: <Pilcrow className="h-10 w-10 text-purple-500" />,
     bgColor: 'bg-purple-100',
   },
+  {
+    title: 'Case Converter',
+    description: 'Convert text to different letter cases.',
+    href: '/case-converter',
+    icon: <CaseUpper className="h-10 w-10 text-red-500" />,
+    bgColor: 'bg-red-100',
+  },
 ];
 
 export default function Home() {
@@ -51,7 +58,7 @@ export default function Home() {
             The Tools You Need, All in One Place
           </h1>
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            A free, accessible, and easy-to-use collection of online tools to help with your daily tasks. No ads, just the tools you need.
+            A free, accessible, and easy-to-use collection of online tools to help with your daily tasks.
           </p>
         </section>
 
