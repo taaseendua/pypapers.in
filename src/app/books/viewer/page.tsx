@@ -1,6 +1,7 @@
 
 'use client';
 
+import 'promise.withresolvers';
 import React, { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Document, Page, pdfjs } from 'react-pdf';
