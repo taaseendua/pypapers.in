@@ -12,7 +12,10 @@ import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
-pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url,
+).toString();
 
 const PageCover = React.forwardRef<HTMLDivElement, { children: React.ReactNode }>(({ children }, ref) => {
   return (
