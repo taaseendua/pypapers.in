@@ -2,8 +2,18 @@
 'use client';
 
 import { Card } from './ui/card';
+import { useEffect } from 'react';
 
 export function InArticleAdBanner() {
+  
+  useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
   return (
     <Card className="flex items-center justify-center p-4 min-h-[120px] w-full">
       <ins
