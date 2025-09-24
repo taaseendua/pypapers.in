@@ -1,69 +1,35 @@
 'use client';
 
 import React from 'react';
-import {
-  Home,
-  QrCode,
-  Cake,
-  Calculator,
-} from 'lucide-react';
-
-import {
-  SidebarProvider,
-  Sidebar,
-  SidebarHeader,
-  SidebarTrigger,
-  SidebarContent,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarInset,
-} from '@/components/ui/sidebar';
-import { Logo } from './logo';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-
-
-const navItems = [
-  { id: '/', label: 'Home', icon: Home, href: '/' },
-  { id: '/qr-code-generator', label: 'QR Code Generator', icon: QrCode, href: '/qr-code-generator' },
-  { id: '/age-calculator', label: 'Age Calculator', icon: Cake, href: '/age-calculator' },
-  { id: '/emi-calculator', label: 'EMI Calculator', icon: Calculator, href: '/emi-calculator' },
-];
+import { Logo } from './logo';
+import { Button } from './ui/button';
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-
   return (
-    <SidebarProvider>
-      <Sidebar>
-        <SidebarHeader>
-          <div className="flex items-center justify-between">
+    <div className="min-h-screen flex flex-col">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center">
+          <Link href="/" className="mr-auto">
             <Logo />
-            <SidebarTrigger className="md:hidden" />
-          </div>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarMenu>
-            {navItems.map((item) => (
-              <SidebarMenuItem key={item.id}>
-                <Link href={item.href} className="w-full">
-                  <SidebarMenuButton
-                    isActive={pathname === item.id}
-                    tooltip={item.label}
-                  >
-                    <item.icon />
-                    <span>{item.label}</span>
-                  </SidebarMenuButton>
-                </Link>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarContent>
-      </Sidebar>
-      <SidebarInset>
+          </Link>
+          <nav className="hidden md:flex gap-6 items-center">
+            <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              Home
+            </Link>
+          </nav>
+        </div>
+      </header>
+      <main className="flex-1">
         {children}
-      </SidebarInset>
-    </SidebarProvider>
+      </main>
+      <footer className="py-6 md:px-8 md:py-0 bg-secondary">
+        <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+            Built by Pro Tools.
+          </p>
+        </div>
+      </footer>
+    </div>
   );
 }

@@ -1,60 +1,60 @@
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, QrCode, Cake, Calculator } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { QrCode, Cake, Calculator } from 'lucide-react';
 
 const tools = [
   {
     title: 'QR Code Generator',
     description: 'Create QR codes for URLs, text, and more.',
     href: '/qr-code-generator',
-    icon: <QrCode className="h-8 w-8 text-primary" />,
+    icon: <QrCode className="h-10 w-10 text-blue-500" />,
+    bgColor: 'bg-blue-100',
   },
   {
     title: 'Age Calculator',
     description: 'Calculate age from your date of birth.',
     href: '/age-calculator',
-    icon: <Cake className="h-8 w-8 text-primary" />,
+    icon: <Cake className="h-10 w-10 text-pink-500" />,
+    bgColor: 'bg-pink-100',
   },
   {
     title: 'EMI Calculator',
     description: 'Calculate Equated Monthly Installment for loans.',
     href: '/emi-calculator',
-    icon: <Calculator className="h-8 w-8 text-primary" />,
+    icon: <Calculator className="h-10 w-10 text-green-500" />,
+    bgColor: 'bg-green-100',
   },
 ];
 
 export default function Home() {
   return (
     <AppLayout>
-      <div className="flex-1 space-y-8 p-8 pt-6">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Welcome to Utility Tools</h2>
-        </div>
-        <p className="text-muted-foreground">
-          A collection of handy, easy-to-use tools to help with your daily tasks.
-        </p>
+      <div className="flex-1 space-y-12 p-8 pt-6">
+        <section className="text-center">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+            The Tools You Need, All in One Place
+          </h1>
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+            A free, accessible, and easy-to-use collection of online tools to help with your daily tasks. No ads, just the tools you need.
+          </p>
+        </section>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
           {tools.map((tool) => (
-            <Card key={tool.title} className="flex flex-col">
-              <CardHeader>
-                <div className="mb-4">{tool.icon}</div>
-                <CardTitle>{tool.title}</CardTitle>
-                <CardDescription>{tool.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="flex-grow" />
-              <div className="p-6 pt-0">
-                <Link href={tool.href}>
-                  <Button>
-                    Open Tool <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
-            </Card>
+            <Link href={tool.href} key={tool.title}>
+              <Card className="flex flex-col items-center justify-center p-8 text-center transition-transform transform hover:-translate-y-2 hover:shadow-2xl h-full">
+                <div className={`p-4 rounded-full mb-4 ${tool.bgColor}`}>
+                  {tool.icon}
+                </div>
+                <CardContent className="p-0">
+                  <h3 className="text-xl font-semibold mb-2">{tool.title}</h3>
+                  <p className="text-muted-foreground">{tool.description}</p>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
-        </div>
+        </section>
       </div>
     </AppLayout>
   );
