@@ -1,10 +1,9 @@
 'use client';
 
 import { AppLayout } from '@/components/app-layout';
-import { Book, Download } from 'lucide-react';
+import { Book, Download, Headphones, BookOpen } from 'lucide-react';
 import { books } from '@/lib/books-data';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -34,11 +33,19 @@ export default function BooksPage() {
                 <CardTitle className="text-xl mb-2">{book.title}</CardTitle>
                 <p className="text-sm text-muted-foreground">{book.description}</p>
               </CardContent>
-              <CardFooter>
+              <CardFooter className="flex flex-col sm:flex-row gap-2 items-center">
                 <Button asChild className="w-full">
                   <a href={book.pdfUrl} target="_blank" rel="noopener noreferrer">
-                    <Download className="mr-2" /> Read Now
+                    <BookOpen className="mr-2" /> Read Now
                   </a>
+                </Button>
+                 <Button asChild variant="outline" className="w-full">
+                  <a href={book.pdfUrl} download={`${book.title.replace(/\s/g, '-')}.pdf`}>
+                    <Download className="mr-2" /> Download
+                  </a>
+                </Button>
+                <Button variant="secondary" className="w-full" disabled>
+                    <Headphones className="mr-2" /> Podcast
                 </Button>
               </CardFooter>
             </Card>
