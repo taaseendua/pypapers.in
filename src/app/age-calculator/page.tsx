@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { cn } from '@/lib/utils';
 import { format, differenceInYears, differenceInMonths, differenceInDays, addYears, addMonths } from 'date-fns';
 import { Calendar as CalendarIcon, Cake } from 'lucide-react';
+import { AdBanner } from '@/components/ad-banner';
 
 export default function AgeCalculatorPage() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -86,6 +87,9 @@ export default function AgeCalculatorPage() {
             </Card>
           )}
         </div>
+
+        <AdBanner />
+
       </div>
     </AppLayout>
   );

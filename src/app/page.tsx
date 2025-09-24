@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
 import { QrCode, Cake, Calculator, KeyRound } from 'lucide-react';
+import { AdBanner } from '@/components/ad-banner';
 
 const tools = [
   {
@@ -62,6 +63,11 @@ export default function Home() {
             </Link>
           ))}
         </section>
+        
+        <section className="max-w-6xl mx-auto">
+          <AdBanner />
+        </section>
+
       </div>
     </AppLayout>
   );

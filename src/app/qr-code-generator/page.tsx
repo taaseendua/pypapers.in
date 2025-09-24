@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import QRCode from 'qrcode.react';
 import { Download, QrCode } from 'lucide-react';
+import { AdBanner } from '@/components/ad-banner';
 
 export default function QrCodeGeneratorPage() {
   const [text, setText] = useState('https://firebase.google.com/studio');
@@ -80,6 +81,9 @@ export default function QrCodeGeneratorPage() {
             </CardContent>
           </Card>
         </div>
+
+        <AdBanner />
+
       </div>
     </AppLayout>
   );

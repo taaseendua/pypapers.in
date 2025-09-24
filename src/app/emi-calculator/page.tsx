@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calculator } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
+import { AdBanner } from '@/components/ad-banner';
 
 export default function EmiCalculatorPage() {
   const [principal, setPrincipal] = useState(100000);
@@ -96,6 +97,8 @@ export default function EmiCalculatorPage() {
             </Card>
           )}
         </div>
+
+        <AdBanner />
       </div>
     </AppLayout>
   );

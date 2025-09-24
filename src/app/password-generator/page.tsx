@@ -10,6 +10,7 @@ import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { KeyRound, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { AdBanner } from '@/components/ad-banner';
 
 export default function PasswordGeneratorPage() {
   const [length, setLength] = useState(16);
@@ -129,6 +130,8 @@ export default function PasswordGeneratorPage() {
             </CardContent>
           </Card>
         </div>
+
+        <AdBanner />
       </div>
     </AppLayout>
   );
