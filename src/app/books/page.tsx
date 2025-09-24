@@ -36,9 +36,9 @@ export default function BooksPage() {
               </CardContent>
               <CardFooter>
                 <Button asChild className="w-full">
-                  <Link href={`/books/viewer?pdfUrl=${encodeURIComponent(book.pdfUrl)}`}>
+                  <a href={book.pdfUrl} target="_blank" rel="noopener noreferrer">
                     <Download className="mr-2" /> Read Now
-                  </Link>
+                  </a>
                 </Button>
               </CardFooter>
             </Card>
