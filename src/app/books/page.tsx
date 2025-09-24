@@ -2,13 +2,13 @@
 'use client';
 
 import { AppLayout } from '@/components/app-layout';
-import { Book, Download, BookOpen, Mic } from 'lucide-react';
+import { Book, Download, BookOpen } from 'lucide-react';
 import { books } from '@/lib/books-data';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 function formatTime(seconds: number) {
   if (isNaN(seconds) || seconds === Infinity) {
@@ -25,10 +25,26 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingSeconds, setLoadingSeconds] = useState(0);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | undefined;
+    if (isLoading) {
+      interval = setInterval(() => {
+        setLoadingSeconds((prevSeconds) => prevSeconds + 1);
+      }, 1000);
+    } else if (!isLoading && loadingSeconds !== 0) {
+      if (interval) clearInterval(interval);
+      setLoadingSeconds(0);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [isLoading, loadingSeconds]);
 
   const handleTimeUpdate = () => {
     if (audioRef.current) {
-      const { currentTime } = audioRef.current;
+      const { currentTime, duration } = audioRef.current;
       setCurrentTime(currentTime);
       setProgress(duration > 0 ? (currentTime / duration) * 100 : 0);
     }
@@ -76,7 +92,7 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
             Your browser does not support the audio element.
           </audio>
            {isLoading ? (
-            <div className="text-sm text-muted-foreground text-center py-4">Loading audio...</div>
+            <div className="text-sm text-muted-foreground text-center py-4">Loading audio... ({loadingSeconds}s)</div>
           ) : (
             <>
               <Progress value={progress} className="w-full" />
