@@ -15,10 +15,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </Link>
           <nav className="hidden md:flex gap-6 items-center">
             <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-              Home
+              Tools
             </Link>
             <Link href="/books" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
               Books
+            </Link>
+            <Link href="/coming-soon" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              Coming Soon
             </Link>
           </nav>
         </div>
