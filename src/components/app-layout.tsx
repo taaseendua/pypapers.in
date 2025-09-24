@@ -27,10 +27,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
               Tools
             </Link>
             <Link href="/books" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-              Books
+              Premium Books
             </Link>
-            <Link href="/coming-soon" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-              Coming Soon
+            <Link href="/articles" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              Articles
             </Link>
           </nav>
         </div>
