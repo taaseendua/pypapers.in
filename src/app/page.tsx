@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop, Youtube, Music } from 'lucide-react';
+import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop, Youtube, Music, Languages } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 
 const tools = [
@@ -74,6 +74,13 @@ const tools = [
     href: '/piano',
     icon: <Music className="h-10 w-10 text-teal-500" />,
     bgColor: 'bg-teal-100',
+  },
+    {
+    title: 'AI Document Translator',
+    description: 'Translate any text using AI.',
+    href: '/ai-document-translator',
+    icon: <Languages className="h-10 w-10 text-sky-500" />,
+    bgColor: 'bg-sky-100',
   }
 ];
 
