@@ -17,6 +17,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
               Home
             </Link>
+            <Link href="/books" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              Books
+            </Link>
           </nav>
         </div>
       </header>
