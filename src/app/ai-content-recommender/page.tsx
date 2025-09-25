@@ -10,6 +10,13 @@ import { recommendContent } from '@/ai/flows/ai-recommend-content';
 import { Sparkles } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'AI Content Recommender',
+  description: 'Get personalized book and audiobook recommendations on any topic using the power of AI. Find your next great read or listen with our intelligent recommender tool.',
+  keywords: ['ai recommender', 'book recommendations', 'audiobook recommendations', 'content discovery', 'ai tools'],
+};
 
 export default function AiContentRecommenderPage() {
   const [topic, setTopic] = useState('');

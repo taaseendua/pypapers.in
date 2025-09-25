@@ -10,6 +10,13 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Premium Books',
+  description: 'Explore our collection of premium books and audiobooks. Read and listen to high-quality content, including best-sellers and classic literature.',
+  keywords: ['premium books', 'audiobooks', 'read online', 'digital library', 'e-books'],
+};
 
 function formatTime(seconds: number) {
     if (isNaN(seconds) || seconds === Infinity) {

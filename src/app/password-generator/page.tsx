@@ -12,6 +12,13 @@ import { KeyRound, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Password Generator',
+  description: 'Generate strong, secure, and random passwords with customizable options. Include uppercase letters, numbers, and symbols for enhanced security.',
+  keywords: ['password generator', 'strong password', 'secure password', 'random password', 'password creator'],
+};
 
 export default function PasswordGeneratorPage() {
   const [length, setLength] = useState(16);

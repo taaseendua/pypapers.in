@@ -11,6 +11,13 @@ import { format, differenceInYears, differenceInMonths, differenceInDays, addYea
 import { Calendar as CalendarIcon, Cake } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Age Calculator',
+  description: 'Calculate your age in years, months, and days with our free and easy-to-use Age Calculator. Simply enter your date of birth to see your exact age.',
+  keywords: ['age calculator', 'date of birth calculator', 'calculate age', 'how old am I', 'age in years'],
+};
 
 export default function AgeCalculatorPage() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -21,7 +28,7 @@ export default function AgeCalculatorPage() {
       const now = new Date();
       const years = differenceInYears(now, date);
       const pastYearDate = addYears(date, years);
-      const months = differenceInMonths(now, pastYearDate);
+      const months = differenceInMonths(now, pastMonthDate);
       const pastMonthDate = addMonths(pastYearDate, months);
       const days = differenceInDays(now, pastMonthDate);
       setAge({ years, months, days });

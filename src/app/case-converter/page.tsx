@@ -9,6 +9,14 @@ import { CaseUpper, Copy, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Case Converter',
+  description: 'Easily convert text between different cases: UPPERCASE, lowercase, Sentence case, and Title Case. A simple and free tool for all your text transformation needs.',
+  keywords: ['case converter', 'text case', 'uppercase', 'lowercase', 'title case', 'sentence case', 'convert text'],
+};
+
 
 export default function CaseConverterPage() {
   const [text, setText] = useState('');
