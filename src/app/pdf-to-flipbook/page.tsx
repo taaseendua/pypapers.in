@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, ChangeEvent } from 'react';
@@ -11,15 +12,6 @@ import { BookUp, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
-import type { Metadata } from 'next';
-
-export function generateMetadata(): Metadata {
-  return {
-    title: 'PDF to Flipbook Converter',
-    description: 'Convert any PDF into a beautiful, interactive flipbook for free. Upload your PDF and create a shareable, page-turning digital book in seconds.',
-    keywords: ['pdf to flipbook', 'flipbook converter', 'pdf converter', 'digital flipbook', 'interactive pdf'],
-  };
-};
 
 export default function PdfToFlipbookPage() {
   const [pdfFile, setPdfFile] = useState<File | null>(null);

@@ -33,6 +33,15 @@ export default function PasswordGeneratorPage() {
     if (includeNumbers) charPool += numberChars;
     if (includeSymbols) charPool += symbolChars;
 
+    if (!charPool) {
+        setPassword('');
+        toast({
+            variant: "destructive",
+            title: 'Please select at least one character type.'
+        })
+        return;
+    };
+
     let newPassword = '';
     for (let i = 0; i < length; i++) {
       const randomIndex = Math.floor(Math.random() * charPool.length);

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, ChangeEvent } from 'react';
@@ -12,15 +13,6 @@ import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
-import type { Metadata } from 'next';
-
-export function generateMetadata(): Metadata {
-  return {
-    title: 'JPG to PDF Converter',
-    description: 'Convert JPG, PNG, and other image formats to a single PDF file for free. Upload multiple images and combine them into one easy-to-share PDF document.',
-    keywords: ['jpg to pdf', 'image to pdf', 'convert jpg to pdf', 'png to pdf', 'pdf converter'],
-  };
-};
 
 export default function JpgToPdfConverterPage() {
   const [images, setImages] = useState<string[]>([]);

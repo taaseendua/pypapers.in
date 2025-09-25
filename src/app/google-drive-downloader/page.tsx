@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -11,15 +12,6 @@ import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
-import type { Metadata } from 'next';
-
-export function generateMetadata(): Metadata {
-  return {
-    title: 'Google Drive Direct Link Generator',
-    description: 'Create a direct download link for your Google Drive files. Bypass the preview page and enable fast, direct downloads with our free tool.',
-    keywords: ['google drive direct link', 'google drive downloader', 'direct download link', 'gdrive link generator'],
-  };
-};
 
 export default function GoogleDriveDownloaderPage() {
   const [driveUrl, setDriveUrl] = useState('');

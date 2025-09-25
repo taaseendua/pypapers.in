@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -10,7 +11,6 @@ import QRCode from 'qrcode.react';
 import { Download, QrCode } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
-import type { Metadata } from 'next';
 
 export default function QrCodeGeneratorPage() {
   const [text, setText] = useState('https://firebase.google.com/studio');

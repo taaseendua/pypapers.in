@@ -8,7 +8,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { format, differenceInYears, differenceInMonths, differenceInDays, addYears, addMonths } from 'date-fns';
+import { format, differenceInYears, differenceInMonths, differenceInDays } from 'date-fns';
 import { Calendar as CalendarIcon, Cake } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
@@ -20,11 +20,35 @@ export default function AgeCalculatorPage() {
   const handleCalculate = () => {
     if (date) {
       const now = new Date();
-      const years = differenceInYears(now, date);
-      const pastYearDate = addYears(date, years);
-      const months = differenceInMonths(now, pastYearDate);
-      const pastMonthDate = addMonths(pastYearDate, months);
-      const days = differenceInDays(now, pastMonthDate);
+      if (date > now) {
+        setAge(null); // or show an error
+        return;
+      }
+      
+      let years = differenceInYears(now, date);
+      let months = differenceInMonths(now, date) % 12;
+      
+      const tempDateForDays = new Date(date);
+      tempDateForDays.setFullYear(date.getFullYear() + years);
+      
+      let monthsCorrection = differenceInMonths(now, tempDateForDays);
+      
+      tempDateForDays.setMonth(date.getMonth() + monthsCorrection);
+      let days = differenceInDays(now, tempDateForDays);
+
+      if (days < 0) {
+        monthsCorrection--;
+        const monthBefore = new Date(now);
+        monthBefore.setMonth(now.getMonth() - 1);
+        days = differenceInDays(now, monthBefore);
+      }
+      
+      months = monthsCorrection;
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+       
       setAge({ years, months, days });
     }
   };

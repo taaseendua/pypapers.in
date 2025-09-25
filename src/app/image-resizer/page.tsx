@@ -10,15 +10,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Crop, Upload, Download } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
-import type { Metadata } from 'next';
-
-export function generateMetadata(): Metadata {
-  return {
-    title: 'Image Resizer',
-    description: 'Easily resize your images online for free. Upload an image, set your desired width and height, and download the perfectly resized image in seconds.',
-    keywords: ['image resizer', 'resize image', 'photo resizer', 'image dimensions', 'free image resizer'],
-  };
-};
 
 export default function ImageResizerPage() {
   const [originalImage, setOriginalImage] = useState<string | null>(null);

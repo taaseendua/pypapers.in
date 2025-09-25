@@ -154,7 +154,7 @@ function BookCard({ book }: { book: (typeof books)[0] }) {
             </Button>
           </>
         ) : (
-          <div className="h-10 w-full"></div> // Placeholder for buttons
+          <div className="h-20 w-full"></div> // Placeholder for buttons
         )}
       </CardFooter>
     </Card>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -11,15 +12,6 @@ import { Copy, Tags } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
-import type { Metadata } from 'next';
-
-export function generateMetadata(): Metadata {
-  return {
-    title: 'Meta Tag Generator',
-    description: 'Generate SEO-friendly meta tags for your website for free. Create custom title, description, and keyword tags to improve your search engine ranking.',
-    keywords: ['meta tag generator', 'seo meta tags', 'create meta tags', 'title tag', 'meta description'],
-  };
-};
 
 export default function MetaTagGeneratorPage() {
   const [title, setTitle] = useState('');
