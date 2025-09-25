@@ -45,6 +45,9 @@ export const metadata: Metadata = {
     // creator: '@yourtwitterhandle', // Replace with your Twitter handle
     // images: ['https://pypapers.in/twitter-image.png'], // Replace with an actual URL to a Twitter image
   },
+  verification: {
+    google: 'sFoaNbrjyICA19YNvq991-tVAC7KpI8J7oJgbVZF9Ug',
+  },
 };
 
 
