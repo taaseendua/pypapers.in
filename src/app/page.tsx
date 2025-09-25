@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage, Tags, BrainCircuit } from 'lucide-react';
+import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage, Tags, BrainCircuit, TrendingUp } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 
 const tools = [
@@ -103,6 +103,13 @@ const tools = [
     href: '/quiz',
     icon: <BrainCircuit className="h-10 w-10 text-fuchsia-500" />,
     bgColor: 'bg-fuchsia-100',
+  },
+  {
+    title: 'Latest Trends',
+    description: 'Discover the latest trending news and topics.',
+    href: '/trending',
+    icon: <TrendingUp className="h-10 w-10 text-emerald-500" />,
+    bgColor: 'bg-emerald-100',
   },
 ];
 

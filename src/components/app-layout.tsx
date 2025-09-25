@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -15,6 +16,9 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <nav className="flex gap-6 items-center">
             <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
               Tools
+            </Link>
+            <Link href="/trending" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              Trending
             </Link>
             <Link href="/books" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
               Premium Books
