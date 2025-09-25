@@ -12,10 +12,12 @@ import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Quiz Tool',
-  description: 'Test your knowledge with our fun and challenging quiz! Answer questions on a variety of topics and see how high you can score.',
-  keywords: ['quiz', 'trivia', 'knowledge test', 'fun quiz', 'online quiz'],
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Quiz Tool',
+    description: 'Test your knowledge with our fun and challenging quiz! Answer questions on a variety of topics and see how high you can score.',
+    keywords: ['quiz', 'trivia', 'knowledge test', 'fun quiz', 'online quiz'],
+  };
 };
 
 export default function QuizPage() {

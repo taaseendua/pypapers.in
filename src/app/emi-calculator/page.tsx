@@ -12,10 +12,12 @@ import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'EMI Calculator',
-  description: 'Calculate your Equated Monthly Installment (EMI) for home loans, car loans, or personal loans. Our free EMI calculator helps you plan your finances.',
-  keywords: ['emi calculator', 'loan calculator', 'home loan emi', 'car loan emi', 'personal loan emi', 'monthly installment'],
+export function generateMetadata(): Metadata {
+  return {
+    title: 'EMI Calculator',
+    description: 'Calculate your Equated Monthly Installment (EMI) for home loans, car loans, or personal loans. Our free EMI calculator helps you plan your finances.',
+    keywords: ['emi calculator', 'loan calculator', 'home loan emi', 'car loan emi', 'personal loan emi', 'monthly installment'],
+  };
 };
 
 export default function EmiCalculatorPage() {

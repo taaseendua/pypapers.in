@@ -13,10 +13,12 @@ import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'YouTube Thumbnail Downloader',
-  description: 'Download high-quality YouTube video thumbnails for free. Simply paste a YouTube video URL to get thumbnails in various resolutions (HD, SD).',
-  keywords: ['youtube thumbnail downloader', 'download youtube thumbnail', 'youtube hd thumbnail', 'video thumbnail'],
+export function generateMetadata(): Metadata {
+  return {
+    title: 'YouTube Thumbnail Downloader',
+    description: 'Download high-quality YouTube video thumbnails for free. Simply paste a YouTube video URL to get thumbnails in various resolutions (HD, SD).',
+    keywords: ['youtube thumbnail downloader', 'download youtube thumbnail', 'youtube hd thumbnail', 'video thumbnail'],
+  };
 };
 
 type Thumbnail = {

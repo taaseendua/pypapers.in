@@ -14,10 +14,12 @@ import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Password Generator',
-  description: 'Generate strong, secure, and random passwords with customizable options. Include uppercase letters, numbers, and symbols for enhanced security.',
-  keywords: ['password generator', 'strong password', 'secure password', 'random password', 'password creator'],
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Password Generator',
+    description: 'Generate strong, secure, and random passwords with customizable options. Include uppercase letters, numbers, and symbols for enhanced security.',
+    keywords: ['password generator', 'strong password', 'secure password', 'random password', 'password creator'],
+  };
 };
 
 export default function PasswordGeneratorPage() {

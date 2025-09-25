@@ -12,10 +12,12 @@ import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Image Resizer',
-  description: 'Easily resize your images online for free. Upload an image, set your desired width and height, and download the perfectly resized image in seconds.',
-  keywords: ['image resizer', 'resize image', 'photo resizer', 'image dimensions', 'free image resizer'],
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Image Resizer',
+    description: 'Easily resize your images online for free. Upload an image, set your desired width and height, and download the perfectly resized image in seconds.',
+    keywords: ['image resizer', 'resize image', 'photo resizer', 'image dimensions', 'free image resizer'],
+  };
 };
 
 export default function ImageResizerPage() {

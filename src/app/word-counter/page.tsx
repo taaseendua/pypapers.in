@@ -9,10 +9,12 @@ import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Word Counter',
-  description: 'A free online tool to count words, characters, sentences, and paragraphs in your text. Perfect for writers, students, and professionals.',
-  keywords: ['word counter', 'character count', 'sentence count', 'paragraph count', 'text analyzer'],
+export function generateMetadata(): Metadata {
+  return {
+    title: 'Word Counter',
+    description: 'A free online tool to count words, characters, sentences, and paragraphs in your text. Perfect for writers, students, and professionals.',
+    keywords: ['word counter', 'character count', 'sentence count', 'paragraph count', 'text analyzer'],
+  };
 };
 
 export default function WordCounterPage() {
