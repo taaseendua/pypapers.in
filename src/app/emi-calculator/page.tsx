@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -10,15 +11,6 @@ import { Calculator } from 'lucide-react';
 import { Slider } from '@/components/ui/slider';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
-import type { Metadata } from 'next';
-
-export function generateMetadata(): Metadata {
-  return {
-    title: 'EMI Calculator',
-    description: 'Calculate your Equated Monthly Installment (EMI) for home loans, car loans, or personal loans. Our free EMI calculator helps you plan your finances.',
-    keywords: ['emi calculator', 'loan calculator', 'home loan emi', 'car loan emi', 'personal loan emi', 'monthly installment'],
-  };
-};
 
 export default function EmiCalculatorPage() {
   const [principal, setPrincipal] = useState(100000);
