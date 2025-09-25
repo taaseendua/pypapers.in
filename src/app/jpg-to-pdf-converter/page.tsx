@@ -10,6 +10,8 @@ import { FileImage, Download } from 'lucide-react';
 import jsPDF from 'jspdf';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
+import { AdBanner } from '@/components/ad-banner';
+import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 
 export default function JpgToPdfConverterPage() {
   const [images, setImages] = useState<string[]>([]);
@@ -168,6 +170,10 @@ export default function JpgToPdfConverterPage() {
             </Button>
           </CardFooter>
         </Card>
+        <div className="space-y-8">
+          <AdBanner />
+          <InArticleAdBanner />
+        </div>
       </div>
     </AppLayout>
   );

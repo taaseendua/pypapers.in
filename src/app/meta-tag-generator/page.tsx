@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -10,6 +9,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Copy, Tags } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { AdBanner } from '@/components/ad-banner';
+import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 
 export default function MetaTagGeneratorPage() {
   const [title, setTitle] = useState('');
@@ -89,6 +90,10 @@ export default function MetaTagGeneratorPage() {
               </CardContent>
             </Card>
           )}
+        </div>
+        <div className="space-y-8">
+          <AdBanner />
+          <InArticleAdBanner />
         </div>
       </div>
     </AppLayout>

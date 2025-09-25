@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, ChangeEvent } from 'react';
@@ -10,6 +9,8 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookUp, Upload } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { AdBanner } from '@/components/ad-banner';
+import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 
 export default function PdfToFlipbookPage() {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -91,6 +92,10 @@ export default function PdfToFlipbookPage() {
             </Button>
           </CardFooter>
         </Card>
+        <div className="space-y-8">
+          <AdBanner />
+          <InArticleAdBanner />
+        </div>
       </div>
     </AppLayout>
   );

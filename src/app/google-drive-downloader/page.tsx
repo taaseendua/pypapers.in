@@ -9,6 +9,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { DownloadCloud, Copy, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AdBanner } from '@/components/ad-banner';
+import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 
 export default function GoogleDriveDownloaderPage() {
   const [driveUrl, setDriveUrl] = useState('');
@@ -116,6 +118,10 @@ export default function GoogleDriveDownloaderPage() {
                     </CardContent>
                 </Card>
             )}
+        </div>
+        <div className="space-y-8">
+          <AdBanner />
+          <InArticleAdBanner />
         </div>
       </div>
     </AppLayout>

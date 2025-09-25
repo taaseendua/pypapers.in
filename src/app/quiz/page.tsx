@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -9,6 +8,8 @@ import { BrainCircuit } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { questions } from '@/lib/quiz-questions';
+import { AdBanner } from '@/components/ad-banner';
+import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 
 export default function QuizPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -94,6 +95,10 @@ export default function QuizPage() {
             </>
           )}
         </Card>
+        <div className="space-y-8">
+          <AdBanner />
+          <InArticleAdBanner />
+        </div>
       </div>
     </AppLayout>
   );

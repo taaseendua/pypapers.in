@@ -8,6 +8,8 @@ import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import { recommendContent } from '@/ai/flows/ai-recommend-content';
 import { Sparkles } from 'lucide-react';
+import { AdBanner } from '@/components/ad-banner';
+import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 
 export default function AiContentRecommenderPage() {
   const [topic, setTopic] = useState('');
@@ -90,6 +92,10 @@ export default function AiContentRecommenderPage() {
               </CardContent>
             </Card>
           )}
+        </div>
+        <div className="space-y-8">
+          <AdBanner />
+          <InArticleAdBanner />
         </div>
       </div>
     </AppLayout>
