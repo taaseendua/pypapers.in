@@ -132,7 +132,7 @@ function FlipbookViewer() {
                 </PageCover>
                 {Array.from(new Array(numPages || 0), (el, index) => (
                   <PDFPage key={`page_${index + 1}`}>
-                    <Page pageNumber={index + 1} width={600} />
+                    <Page pageNumber={index + 1} />
                   </PDFPage>
                 ))}
                  <PageCover>
