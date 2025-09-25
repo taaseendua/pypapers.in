@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -11,15 +12,6 @@ import { format, differenceInYears, differenceInMonths, differenceInDays, addYea
 import { Calendar as CalendarIcon, Cake } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
-import type { Metadata } from 'next';
-
-export function generateMetadata(): Metadata {
-  return {
-    title: 'Age Calculator',
-    description: 'Calculate your age in years, months, and days with our free and easy-to-use Age Calculator. Simply enter your date of birth to see your exact age.',
-    keywords: ['age calculator', 'date of birth calculator', 'calculate age', 'how old am I', 'age in years'],
-  };
-};
 
 export default function AgeCalculatorPage() {
   const [date, setDate] = useState<Date | undefined>(new Date());
