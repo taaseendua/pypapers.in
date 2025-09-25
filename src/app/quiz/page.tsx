@@ -8,34 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { BrainCircuit } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
-
-const questions = [
-  {
-    question: "What is the capital of France?",
-    options: ["Berlin", "Madrid", "Paris", "Rome"],
-    answer: "Paris",
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Earth", "Mars", "Jupiter", "Venus"],
-    answer: "Mars",
-  },
-  {
-    question: "What is the largest mammal in the world?",
-    options: ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
-    answer: "Blue Whale",
-  },
-  {
-    question: "Who wrote 'Romeo and Juliet'?",
-    options: ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
-    answer: "William Shakespeare",
-  },
-  {
-    question: "What is the chemical symbol for Gold?",
-    options: ["Au", "Ag", "Go", "Gd"],
-    answer: "Au",
-  },
-];
+import { questions } from '@/lib/quiz-questions';
 
 export default function QuizPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
