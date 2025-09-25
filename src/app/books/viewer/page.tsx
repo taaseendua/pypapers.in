@@ -38,15 +38,25 @@ PDFPage.displayName = 'PDFPage';
 
 function FlipbookViewer() {
   const searchParams = useSearchParams();
-  const pdfUrl = searchParams.get('pdfUrl');
+  let pdfUrl = searchParams.get('pdfUrl');
   const startPage = searchParams.get('page');
 
   const [numPages, setNumPages] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [scale, setScale] = useState(1);
   const flipBookRef = React.useRef<any>(null);
+  const [fileUrl, setFileUrl] = useState<string | null>(pdfUrl);
 
-  const storageKey = `book_progress_pdf_${pdfUrl}`;
+  // If the pdfUrl is 'session', it means we need to get it from sessionStorage
+  useEffect(() => {
+    if (pdfUrl === 'session') {
+      const storedUrl = sessionStorage.getItem('flipbookPdfUrl');
+      setFileUrl(storedUrl);
+    }
+  }, [pdfUrl]);
+
+
+  const storageKey = `book_progress_pdf_${fileUrl}`;
 
   useEffect(() => {
     const pageNumber = parseInt(startPage || '0', 10);
@@ -61,7 +71,9 @@ function FlipbookViewer() {
 
   const handleFlip = (e: any) => {
     setCurrentPage(e.data);
-    localStorage.setItem(storageKey, e.data.toString());
+    if(fileUrl && fileUrl !== 'session'){
+      localStorage.setItem(storageKey, e.data.toString());
+    }
   };
   
   const goToNextPage = () => {
@@ -76,7 +88,7 @@ function FlipbookViewer() {
     }
   };
 
-  if (!pdfUrl) {
+  if (!fileUrl) {
     return (
       <AppLayout>
         <div className="flex-1 flex items-center justify-center p-8">
@@ -92,10 +104,10 @@ function FlipbookViewer() {
         <div className="flex-grow flex items-center justify-center">
           <div style={{ transform: `scale(${scale})`, transformOrigin: 'center' }} className="transition-transform duration-300">
             <Document
-              file={{url: pdfUrl}}
+              file={fileUrl}
               onLoadSuccess={onDocumentLoadSuccess}
               loading={<Skeleton className="w-[600px] h-[800px] rounded-md" />}
-              error={<p>Failed to load PDF. This may be due to cross-origin restrictions. Try downloading the file and opening it locally.</p>}
+              error={<p>Failed to load PDF. The file may be corrupted or not accessible.</p>}
             >
               <HTMLFlipBook
                 width={600}
