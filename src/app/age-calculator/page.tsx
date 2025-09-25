@@ -8,7 +8,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { format, differenceInYears, differenceInMonths, differenceInDays } from 'date-fns';
+import { format, differenceInYears, differenceInMonths, differenceInDays, addYears, addMonths, subDays } from 'date-fns';
 import { Calendar as CalendarIcon, Cake } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
@@ -25,30 +25,12 @@ export default function AgeCalculatorPage() {
         return;
       }
       
-      let years = differenceInYears(now, date);
-      let months = differenceInMonths(now, date) % 12;
-      
-      const tempDateForDays = new Date(date);
-      tempDateForDays.setFullYear(date.getFullYear() + years);
-      
-      let monthsCorrection = differenceInMonths(now, tempDateForDays);
-      
-      tempDateForDays.setMonth(date.getMonth() + monthsCorrection);
-      let days = differenceInDays(now, tempDateForDays);
+      const years = differenceInYears(now, date);
+      const pastDateYearsAgo = addYears(date, years);
+      const months = differenceInMonths(now, pastDateYearsAgo);
+      const pastDateMonthsAgo = addMonths(pastDateYearsAgo, months);
+      const days = differenceInDays(now, pastDateMonthsAgo);
 
-      if (days < 0) {
-        monthsCorrection--;
-        const monthBefore = new Date(now);
-        monthBefore.setMonth(now.getMonth() - 1);
-        days = differenceInDays(now, monthBefore);
-      }
-      
-      months = monthsCorrection;
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
-       
       setAge({ years, months, days });
     }
   };

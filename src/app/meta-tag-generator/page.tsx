@@ -22,22 +22,20 @@ export default function MetaTagGeneratorPage() {
 
   const handleGenerate = () => {
     const tags = `
-&lt;title&gt;${title}&lt;/title&gt;
-&lt;meta name="description" content="${description}" /&gt;
-&lt;meta name="keywords" content="${keywords}" /&gt;
-&lt;meta name="robots" content="index, follow" /&gt;
-&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-&lt;meta name="language" content="English" /&gt;
-&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+<title>${title}</title>
+<meta name="description" content="${description}" />
+<meta name="keywords" content="${keywords}" />
+<meta name="robots" content="index, follow" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="language" content="English" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     `.trim();
     setGeneratedTags(tags);
   };
 
   const handleCopy = () => {
     if (generatedTags) {
-      // Decode the HTML entities for the clipboard
-      const decodedTags = generatedTags.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-      navigator.clipboard.writeText(decodedTags);
+      navigator.clipboard.writeText(generatedTags);
       toast({
         title: 'Copied to clipboard!',
       });
@@ -79,12 +77,12 @@ export default function MetaTagGeneratorPage() {
             <Card>
               <CardHeader>
                 <CardTitle>Generated Meta Tags</CardTitle>
-                <CardDescription>Copy and paste these tags into the `<head>` section of your HTML.</CardDescription>
+                <CardDescription>Copy and paste these tags into the &lt;head&gt; section of your HTML.</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="relative">
                   <pre className="bg-secondary p-4 rounded-md text-sm overflow-x-auto">
-                    <code dangerouslySetInnerHTML={{ __html: generatedTags.replace(/\n/g, '<br />') }} />
+                    <code>{generatedTags}</code>
                   </pre>
                   <Button variant="ghost" size="icon" className="absolute right-2 top-2 h-8 w-8" onClick={handleCopy}>
                     <Copy className="h-4 w-4" />
