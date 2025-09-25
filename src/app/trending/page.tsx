@@ -6,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { TrendingUp, ExternalLink } from 'lucide-react';
+import { TrendingUp, ExternalLink, Info } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
@@ -23,6 +23,12 @@ interface Article {
     name: string;
     url: string;
   };
+}
+
+interface ApiResponse {
+    articles: Article[];
+    sampleData?: boolean;
+    error?: string;
 }
 
 function ArticleSkeleton() {
@@ -53,6 +59,7 @@ export default function TrendingPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isSampleData, setIsSampleData] = useState(false);
 
   useEffect(() => {
     async function fetchTrendingArticles() {
@@ -60,10 +67,17 @@ export default function TrendingPage() {
         setLoading(true);
         const response = await fetch('/api/trending');
         if (!response.ok) {
-          throw new Error('Failed to fetch trending topics. The API key might be missing or invalid.');
+          const data: ApiResponse = await response.json();
+          throw new Error(data.error || 'Failed to fetch trending topics.');
         }
-        const data = await response.json();
+        const data: ApiResponse = await response.json();
+        if (data.error) {
+            throw new Error(data.error);
+        }
         setArticles(data.articles || []);
+        if (data.sampleData) {
+            setIsSampleData(true);
+        }
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -84,16 +98,26 @@ export default function TrendingPage() {
         
         {error && (
             <Alert variant="destructive">
-                <AlertTitle>Error</AlertTitle>
+                <AlertTitle>Error Fetching Articles</AlertTitle>
                 <AlertDescription>
-                    {error} Please make sure you have added your GNews API key to the .env file.
+                    {error}
+                </AlertDescription>
+            </Alert>
+        )}
+
+        {isSampleData && (
+            <Alert>
+                <Info className="h-4 w-4" />
+                <AlertTitle>Viewing Sample Data</AlertTitle>
+                <AlertDescription>
+                    You are currently seeing sample articles. To view live trends, please add your GNews API key to the <code>.env</code> file in your project.
                 </AlertDescription>
             </Alert>
         )}
 
         <div className="space-y-6">
             {loading ? (
-                Array.from({length: 5}).map((_, i) => <ArticleSkeleton key={i} />)
+                Array.from({length: 3}).map((_, i) => <ArticleSkeleton key={i} />)
             ) : (
                 articles.map((article, index) => (
                     <Card key={index} className="flex flex-col md:flex-row overflow-hidden transition-shadow hover:shadow-lg">
@@ -104,6 +128,7 @@ export default function TrendingPage() {
                                     alt={article.title}
                                     fill
                                     className="object-cover"
+                                    data-ai-hint="news article"
                                 />
                              </div>
                         )}
