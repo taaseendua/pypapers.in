@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop, Youtube, BookUp, DownloadCloud } from 'lucide-react';
+import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 
 const tools = [
@@ -81,6 +81,13 @@ const tools = [
     href: '/google-drive-downloader',
     icon: <DownloadCloud className="h-10 w-10 text-sky-500" />,
     bgColor: 'bg-sky-100',
+  },
+  {
+    title: 'JPG to PDF Converter',
+    description: 'Convert JPG images into a single PDF document.',
+    href: '/jpg-to-pdf-converter',
+    icon: <FileImage className="h-10 w-10 text-cyan-500" />,
+    bgColor: 'bg-cyan-100',
   },
 ];
 
