@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage, Tags } from 'lucide-react';
+import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage, Tags, BrainCircuit } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 
 const tools = [
@@ -96,6 +96,13 @@ const tools = [
     href: '/meta-tag-generator',
     icon: <Tags className="h-10 w-10 text-lime-500" />,
     bgColor: 'bg-lime-100',
+  },
+  {
+    title: 'Quiz Tool',
+    description: 'Test your knowledge with a fun quiz.',
+    href: '/quiz',
+    icon: <BrainCircuit className="h-10 w-10 text-fuchsia-500" />,
+    bgColor: 'bg-fuchsia-100',
   },
 ];
 
