@@ -12,15 +12,6 @@ import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 import type { Metadata } from 'next';
 
-export function generateMetadata(): Metadata {
-  return {
-    title: 'QR Code Generator',
-    description: 'Easily create and download custom QR codes for URLs, text, and more. A free and fast tool to generate QR codes for your business or personal use.',
-    keywords: ['QR code generator', 'free QR code', 'URL to QR code', 'text to QR code', 'QR code creator'],
-  };
-};
-
-
 export default function QrCodeGeneratorPage() {
   const [text, setText] = useState('https://firebase.google.com/studio');
   const [qrValue, setQrValue] = useState('https://firebase.google.com/studio');

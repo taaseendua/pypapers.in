@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -12,7 +13,6 @@ import { KeyRound, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
-import type { Metadata } from 'next';
 
 export default function PasswordGeneratorPage() {
   const [length, setLength] = useState(16);

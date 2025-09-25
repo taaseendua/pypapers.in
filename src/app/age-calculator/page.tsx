@@ -30,7 +30,7 @@ export default function AgeCalculatorPage() {
       const now = new Date();
       const years = differenceInYears(now, date);
       const pastYearDate = addYears(date, years);
-      const months = differenceInMonths(now, pastMonthDate);
+      const months = differenceInMonths(now, pastYearDate);
       const pastMonthDate = addMonths(pastYearDate, months);
       const days = differenceInDays(now, pastMonthDate);
       setAge({ years, months, days });
