@@ -1,7 +1,8 @@
+
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
-import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage } from 'lucide-react';
+import { QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage, Tags } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 
 const tools = [
@@ -88,6 +89,13 @@ const tools = [
     href: '/jpg-to-pdf-converter',
     icon: <FileImage className="h-10 w-10 text-cyan-500" />,
     bgColor: 'bg-cyan-100',
+  },
+  {
+    title: 'Meta Tag Generator',
+    description: 'Create SEO-friendly meta tags for your website.',
+    href: '/meta-tag-generator',
+    icon: <Tags className="h-10 w-10 text-lime-500" />,
+    bgColor: 'bg-lime-100',
   },
 ];
 
