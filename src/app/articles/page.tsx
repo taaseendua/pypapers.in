@@ -2,15 +2,6 @@
 
 import { AppLayout } from '@/components/app-layout';
 import { Newspaper } from 'lucide-react';
-import type { Metadata } from 'next';
-
-export function generateMetadata(): Metadata {
-  return {
-    title: 'Articles',
-    description: 'Read insightful articles on technology, productivity, and the latest trends. Stay informed with our curated content.',
-    keywords: ['articles', 'blog', 'tech articles', 'productivity tips', 'latest trends'],
-  };
-};
 
 export default function ArticlesPage() {
   return (
