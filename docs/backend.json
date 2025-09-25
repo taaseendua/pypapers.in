@@ -1,0 +1,363 @@
+{
+  "entities": {
+    "Tool": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Tool",
+      "type": "object",
+      "description": "Represents a tool available on pypapers.in, such as calculators, converters, or other utilities.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the tool."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the tool."
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of the tool's functionality."
+        },
+        "url": {
+          "type": "string",
+          "description": "URL where the tool can be accessed.",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category the tool belongs to (e.g., 'Mathematics', 'Finance')."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the image representing the tool.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "url",
+        "category",
+        "imageUrl"
+      ]
+    },
+    "Book": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Book",
+      "type": "object",
+      "description": "Represents a book available on pypapers.in.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the book."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the book."
+        },
+        "author": {
+          "type": "string",
+          "description": "Author of the book."
+        },
+        "description": {
+          "type": "string",
+          "description": "Summary of the book's content."
+        },
+        "isbn": {
+          "type": "string",
+          "description": "International Standard Book Number."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the book's cover image.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "author",
+        "description",
+        "isbn",
+        "imageUrl"
+      ]
+    },
+    "Audiobook": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Audiobook",
+      "type": "object",
+      "description": "Represents an audiobook available on pypapers.in.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the audiobook."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the audiobook."
+        },
+        "author": {
+          "type": "string",
+          "description": "Author of the audiobook."
+        },
+        "narrator": {
+          "type": "string",
+          "description": "Narrator of the audiobook."
+        },
+        "description": {
+          "type": "string",
+          "description": "Summary of the audiobook's content."
+        },
+        "audioUrl": {
+          "type": "string",
+          "description": "URL where the audiobook can be streamed or downloaded.",
+          "format": "uri"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the audiobook's cover image.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "author",
+        "narrator",
+        "description",
+        "audioUrl",
+        "imageUrl"
+      ]
+    },
+    "Note": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Note",
+      "type": "object",
+      "description": "Represents a user-created note within the pypapers.in application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the note."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Note).  Unique identifier of the user who created the note."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the note."
+        },
+        "content": {
+          "type": "string",
+          "description": "Content of the note (e.g., text, code snippet)."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the note was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp indicating when the note was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "title",
+        "content",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the pypapers.in application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "username": {
+          "type": "string",
+          "description": "Username of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the user.",
+          "format": "email"
+        },
+        "profileImageUrl": {
+          "type": "string",
+          "description": "URL of the user's profile image.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "username",
+        "email"
+      ]
+    },
+    "Recommendation": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Recommendation",
+      "type": "object",
+      "description": "Represents an AI-generated content recommendation for a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the recommendation."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Recommendation).  Unique identifier of the user the recommendation is for."
+        },
+        "contentType": {
+          "type": "string",
+          "description": "Type of content being recommended (e.g., 'Tool', 'Book', 'Audiobook')."
+        },
+        "contentId": {
+          "type": "string",
+          "description": "Identifier of the specific content item being recommended. References Tool.id, Book.id, or Audiobook.id based on contentType."
+        },
+        "reason": {
+          "type": "string",
+          "description": "Explanation or reason for the recommendation generated by the AI."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Timestamp of when the recommendation was generated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "contentType",
+        "contentId",
+        "reason",
+        "timestamp"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profiles.  User documents are only writable by the corresponding authenticated user.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/tools/{toolId}",
+        "definition": {
+          "entityName": "Tool",
+          "schema": {
+            "$ref": "#/backend/entities/Tool"
+          },
+          "description": "Stores information about the tools available on the platform. This collection is publicly readable.  Write access should be restricted to admin roles.",
+          "params": [
+            {
+              "name": "toolId",
+              "description": "The unique identifier of the tool."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/books/{bookId}",
+        "definition": {
+          "entityName": "Book",
+          "schema": {
+            "$ref": "#/backend/entities/Book"
+          },
+          "description": "Stores information about the books available on the platform.  This collection is publicly readable. Write access should be restricted to admin roles.",
+          "params": [
+            {
+              "name": "bookId",
+              "description": "The unique identifier of the book."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/audiobooks/{audiobookId}",
+        "definition": {
+          "entityName": "Audiobook",
+          "schema": {
+            "$ref": "#/backend/entities/Audiobook"
+          },
+          "description": "Stores information about the audiobooks available on the platform. This collection is publicly readable. Write access should be restricted to admin roles.",
+          "params": [
+            {
+              "name": "audiobookId",
+              "description": "The unique identifier of the audiobook."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/notes/{noteId}",
+        "definition": {
+          "entityName": "Note",
+          "schema": {
+            "$ref": "#/backend/entities/Note"
+          },
+          "description": "Stores user-created notes.  Accessible only by the user.  Path-based ownership is enforced.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "noteId",
+              "description": "The unique identifier of the note."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/recommendations/{recommendationId}",
+        "definition": {
+          "entityName": "Recommendation",
+          "schema": {
+            "$ref": "#/backend/entities/Recommendation"
+          },
+          "description": "Stores AI-generated content recommendations for a user. Accessible only by the user. Path-based ownership is enforced.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "recommendationId",
+              "description": "The unique identifier of the recommendation."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to provide a secure and scalable solution for the pypapers.in application, focusing on authorization independence and clear security rules. It leverages path-based ownership and denormalization to avoid complex `get()` calls in security rules, which ensures atomic operations and simplifies debugging.\n\n*   **Users Collection:** Stores user profiles.\n*   **Tools Collection:** Stores information about the tools available on the platform.  This collection is publicly readable. No write access from users.\n*   **Books Collection:** Stores information about the books available on the platform. This collection is publicly readable. No write access from users.\n*   **Audiobooks Collection:** Stores information about the audiobooks available on the platform. This collection is publicly readable. No write access from users.\n*   **User Notes:** Each user has a dedicated collection for their notes (`/users/{userId}/notes/{noteId}`). This enforces path-based ownership, making security rules straightforward. Only the user can access their own notes.\n*   **Recommendations:** Each user has a dedicated collection for recommendations (`/users/{userId}/recommendations/{recommendationId}`). This supports the display of AI recommendations based on the user's interest or past activity. Only the user can access their own recommendations.\n\nThis structure promotes Authorization Independence by avoiding the need to fetch parent document data to validate child document access. The design also supports clear QAPs by segregating data based on ownership and access requirements. Publicly available content (tools, books, audiobooks) are stored in root collections without ownership restrictions. User-specific data (notes, recommendations) are stored in subcollections under the user's document."
+  }
+}

@@ -1,0 +1,151 @@
+/**
+ * @file Firestore Security Rules for pypapers.in
+ * @description This ruleset enforces a strict user-ownership model for user-specific data (notes, recommendations)
+ *              while allowing public read access to tools, books, and audiobooks. Write access to public collections is denied.
+ *
+ * Data Structure:
+ * - /users/{userId}: User profile information, writable only by the user.
+ * - /tools/{toolId}: Publicly readable information about tools.
+ * - /books/{bookId}: Publicly readable information about books.
+ * - /audiobooks/{audiobookId}: Publicly readable information about audiobooks.
+ * - /users/{userId}/notes/{noteId}: User-specific notes, accessible only by the user.
+ * - /users/{userId}/recommendations/{recommendationId}: AI-generated recommendations for a user, accessible only by the user.
+ *
+ * Key Security Decisions:
+ * - Public read access to the tools, books, and audiobooks collections.
+ * - Strict user-ownership for notes and recommendations, enforced through path-based rules.
+ * - No write access from users to the tools, books, and audiobooks collections.
+ *
+ * Denormalization for Authorization:
+ * - User-specific data (notes, recommendations) is nested under the /users/{userId} path,
+ *   allowing for easy enforcement of ownership using the `isOwner(userId)` function.  The `userId` is also stored within the document itself on creation to ensure the path and content are consistent and immutable.
+ *   This avoids the need for complex lookups or joins in the security rules.
+ *
+ * Structural Segregation:
+ * - Publicly readable data (tools, books, audiobooks) is stored in top-level collections,
+ *   while user-specific private data (notes, recommendations) is stored in user subcollections.
+ *   This separation simplifies access control and improves performance for list operations.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Allows users to read and write their own profile data.
+     * @path /users/{userId}
+     * @allow (create) - User with UID 'user_abc' can create their own user document with id 'user_abc'.
+     * @allow (get, update, delete) - User with UID 'user_abc' can read, update, and delete their own user document with id 'user_abc'.
+     * @deny (create) - User with UID 'user_abc' cannot create a user document with id 'user_xyz'.
+     * @deny (update, delete) - User with UID 'user_abc' cannot update or delete another user's document (e.g., with ID 'user_xyz').
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId} {
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if true;
+      allow list: if false;
+
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows anyone to read tools, but no one to create, update or delete them.
+     * @path /tools/{toolId}
+     * @allow (get, list) - Any user (signed in or not) can read tool data.
+     * @deny (create, update, delete) - No one can create, update, or delete tool data.
+     * @principle Public read access with restricted writes.
+     */
+    match /tools/{toolId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Allows anyone to read books, but no one to create, update or delete them.
+     * @path /books/{bookId}
+     * @allow (get, list) - Any user (signed in or not) can read book data.
+     * @deny (create, update, delete) - No one can create, update, or delete book data.
+     * @principle Public read access with restricted writes.
+     */
+    match /books/{bookId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Allows anyone to read audiobooks, but no one to create, update or delete them.
+     * @path /audiobooks/{audiobookId}
+     * @allow (get, list) - Any user (signed in or not) can read audiobook data.
+     * @deny (create, update, delete) - No one can create, update, or delete audiobook data.
+     * @principle Public read access with restricted writes.
+     */
+    match /audiobooks/{audiobookId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Allows users to read, create, update, and delete their own notes.
+     * @path /users/{userId}/notes/{noteId}
+     * @allow (create) - User with UID 'user_abc' can create a note under their user document.
+     * @allow (get, update, delete) - User with UID 'user_abc' can read, update, and delete their own note.
+     * @deny (create, update, delete) - User with UID 'user_abc' cannot create, update, or delete notes for another user.
+     * @principle Enforces document ownership for all operations.
+     */
+    match /users/{userId}/notes/{noteId} {
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows users to read, create, update, and delete their own recommendations.
+     * @path /users/{userId}/recommendations/{recommendationId}
+     * @allow (create) - User with UID 'user_abc' can create a recommendation under their user document.
+     * @allow (get, update, delete) - User with UID 'user_abc' can read, update, and delete their own recommendation.
+     * @deny (create, update, delete) - User with UID 'user_abc' cannot create, update, or delete recommendations for another user.
+     * @principle Enforces document ownership for all operations.
+     */
+    match /users/{userId}/recommendations/{recommendationId} {
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isExistingOwner(userId);
+    }
+  }
+}
