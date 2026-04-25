@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -8,8 +7,8 @@ import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { format, differenceInYears, differenceInMonths, differenceInDays, addYears, addMonths, subDays } from 'date-fns';
-import { Calendar as CalendarIcon, Cake } from 'lucide-react';
+import { format, differenceInYears, differenceInMonths, differenceInDays, addYears, addMonths } from 'date-fns';
+import { Calendar as CalendarIcon, Cake, Clock, Sparkles } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { InArticleAdBanner } from '@/components/in-article-ad-banner';
 
@@ -21,7 +20,7 @@ export default function AgeCalculatorPage() {
     if (date) {
       const now = new Date();
       if (date > now) {
-        setAge(null); // or show an error
+        setAge(null);
         return;
       }
       
@@ -37,17 +36,20 @@ export default function AgeCalculatorPage() {
 
   return (
     <AppLayout>
-      <div className="flex-1 space-y-8 p-8 pt-6">
-        <div className="flex items-center gap-4">
-          <Cake className="h-8 w-8" />
-          <h2 className="text-3xl font-bold tracking-tight">Age Calculator</h2>
+      <div className="max-w-4xl mx-auto space-y-12 pb-12">
+        <div className="text-center space-y-4">
+          <div className="p-4 bg-pink-100 rounded-2xl inline-flex text-pink-600 mb-4 shadow-sm">
+            <Cake className="h-10 w-10" />
+          </div>
+          <h2 className="text-4xl font-extrabold tracking-tight">Age Calculator</h2>
+          <p className="text-muted-foreground text-lg">Determine your exact age down to the day in a professional way.</p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2">
-          <Card>
+          <Card className="border-none shadow-xl glass-card">
             <CardHeader>
-              <CardTitle>Enter your Date of Birth</CardTitle>
-              <CardDescription>Select your birth date to calculate your age.</CardDescription>
+              <CardTitle>Date of Birth</CardTitle>
+              <CardDescription>Select your birthday from the calendar below.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Popover>
@@ -55,15 +57,15 @@ export default function AgeCalculatorPage() {
                   <Button
                     variant={'outline'}
                     className={cn(
-                      'w-full justify-start text-left font-normal',
+                      'w-full h-12 justify-start text-left font-normal border-primary/20 hover:bg-primary/5',
                       !date && 'text-muted-foreground'
                     )}
                   >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    <CalendarIcon className="mr-3 h-5 w-5 text-primary" />
                     {date ? format(date, 'PPP') : <span>Pick a date</span>}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0">
+                <PopoverContent className="w-auto p-0 shadow-2xl rounded-xl border-none">
                   <Calendar
                     mode="single"
                     selected={date}
@@ -72,35 +74,55 @@ export default function AgeCalculatorPage() {
                     captionLayout="dropdown-buttons"
                     fromYear={1900}
                     toYear={new Date().getFullYear()}
+                    className="rounded-xl"
                   />
                 </PopoverContent>
               </Popover>
             </CardContent>
             <CardFooter>
-              <Button onClick={handleCalculate}>Calculate Age</Button>
+              <Button onClick={handleCalculate} className="w-full h-12 text-lg font-bold shadow-lg shadow-primary/20">Calculate My Age</Button>
             </CardFooter>
           </Card>
 
-          {age && (
-            <Card className="flex flex-col items-center justify-center p-6">
-              <CardHeader>
-                <CardTitle className="text-center">Your Age</CardTitle>
+          {age ? (
+            <Card className="border-none shadow-xl bg-primary text-primary-foreground overflow-hidden relative">
+              <div className="absolute top-0 right-0 p-8 opacity-10">
+                <Sparkles className="h-32 w-32" />
+              </div>
+              <CardHeader className="relative">
+                <CardTitle className="text-center text-primary-foreground/80">Result Analysis</CardTitle>
               </CardHeader>
-              <CardContent className="flex flex-col items-center justify-center gap-4 text-center">
-                <div className="text-4xl font-bold text-primary">{age.years}</div>
-                <div className="text-muted-foreground">
-                  {age.months} months | {age.days} days
+              <CardContent className="flex flex-col items-center justify-center gap-8 py-8 relative">
+                <div className="text-center">
+                  <div className="text-7xl font-black mb-2">{age.years}</div>
+                  <div className="text-xl font-medium opacity-90 uppercase tracking-widest">Years Old</div>
+                </div>
+                <div className="grid grid-cols-2 gap-8 w-full">
+                  <div className="text-center p-4 bg-white/10 rounded-2xl backdrop-blur-sm">
+                    <div className="text-3xl font-bold">{age.months}</div>
+                    <div className="text-xs uppercase opacity-70">Months</div>
+                  </div>
+                  <div className="text-center p-4 bg-white/10 rounded-2xl backdrop-blur-sm">
+                    <div className="text-3xl font-bold">{age.days}</div>
+                    <div className="text-xs uppercase opacity-70">Days</div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
+          ) : (
+             <Card className="border-none shadow-xl glass-card flex items-center justify-center p-12">
+                <div className="text-center space-y-4 opacity-40">
+                  <Clock className="h-16 w-16 mx-auto" />
+                  <p className="font-medium italic">Awaiting birth date...</p>
+                </div>
+             </Card>
           )}
         </div>
 
-        <div className="space-y-8">
+        <div className="space-y-8 max-w-2xl mx-auto">
           <AdBanner />
           <InArticleAdBanner />
         </div>
-
       </div>
     </AppLayout>
   );
