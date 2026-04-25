@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -21,15 +20,15 @@ export default function MetaTagGeneratorPage() {
   const { toast } = useToast();
 
   const handleGenerate = () => {
-    const tags = `
-<title>${title}</title>
-<meta name="description" content="${description}" />
-<meta name="keywords" content="${keywords}" />
-<meta name="robots" content="index, follow" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="language" content="English" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    `.trim();
+    const tags = [
+      `<title>${title || 'Page Title'}</title>`,
+      `<meta name="description" content="${description || ''}" />`,
+      `<meta name="keywords" content="${keywords || ''}" />`,
+      `<meta name="robots" content="index, follow" />`,
+      `<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />`,
+      `<meta name="language" content="English" />`,
+      `<meta name="viewport" content="width=device-width, initial-scale=1.0">`
+    ].join('\n');
     setGeneratedTags(tags);
   };
 
