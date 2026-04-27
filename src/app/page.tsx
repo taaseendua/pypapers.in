@@ -141,7 +141,7 @@ export default function Home() {
             The Ultimate Productivity Suite
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-foreground lg:leading-[1.1]">
-            Professional Tools <br className="hidden md:block" />
+            Lovely Tools <br className="hidden md:block" />
             <span className="text-primary drop-shadow-sm">For Every Task</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium">

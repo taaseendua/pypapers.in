@@ -1,11 +1,11 @@
-import { Wrench } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 export function Logo() {
   return (
     <div className="flex items-center gap-2">
-      <Wrench className="h-7 w-7 text-primary" />
+      <Heart className="h-7 w-7 text-primary fill-primary/10" />
       <h1 className="text-xl font-bold tracking-tighter text-foreground">
-        Pro Tools
+        Lovely Tools
       </h1>
     </div>
   );

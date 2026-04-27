@@ -53,7 +53,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <div className="space-y-4">
               <Logo />
               <p className="text-sm text-muted-foreground max-w-xs mx-auto md:mx-0">
-                Premium collection of professional tools designed to simplify your daily digital tasks.
+                Premium collection of lovely professional tools designed to simplify your daily digital tasks.
               </p>
             </div>
             <div>
@@ -73,7 +73,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div className="pt-8 border-t text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} Pro Tools. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Lovely Tools. All rights reserved.</p>
           </div>
         </div>
       </footer>
