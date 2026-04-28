@@ -30,7 +30,7 @@ const tools = [
     title: 'EMI Calculator',
     description: 'Financial planning for loans and repayments.',
     href: '/emi-calculator',
-    icon: <Calculator className="h-6 w-6" />,
+    icon: <Landmark className="h-6 w-6" />,
     color: 'text-emerald-600',
     bg: 'bg-emerald-50',
   },
@@ -132,29 +132,35 @@ const tools = [
   },
 ];
 
+import { Landmark } from 'lucide-react';
+
 export default function Home() {
   return (
     <AppLayout>
       <div className="space-y-16 pb-12">
         <section className="text-center space-y-6 pt-12 pb-8 hero-gradient rounded-3xl p-8 shadow-inner-lg">
           <div className="inline-block px-4 py-1.5 mb-4 text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 rounded-full border border-primary/20 shadow-sm">
-            The Ultimate Productivity Suite
+            Professional Web Utilities
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-foreground lg:leading-[1.1]">
             Lovely Tools <br className="hidden md:block" />
-            <span className="text-primary drop-shadow-sm">For Every Task</span>
+            <span className="text-primary drop-shadow-sm">Beautifully Efficient</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium">
-            Boost your productivity with our suite of free, secure, and lightning-fast online utilities. No signup required.
+            A premium collection of high-performance digital tools designed for the modern web. Secure, fast, and free forever.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
             <Link href="#tools" className="inline-flex items-center justify-center h-14 px-10 text-lg font-bold text-white transition-all bg-primary rounded-xl hover:shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:-translate-y-1 active:translate-y-0 shadow-lg">
-              Explore Tools <ArrowRight className="ml-2 h-5 w-5" />
+              View All Tools <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
             <Link href="/books" className="inline-flex items-center justify-center h-14 px-10 text-lg font-bold text-primary transition-all bg-white/80 backdrop-blur-md border border-primary/20 rounded-xl hover:bg-primary/5 hover:shadow-xl hover:-translate-y-1 active:translate-y-0 shadow-md">
               Premium Content
             </Link>
           </div>
+        </section>
+
+        <section className="max-w-7xl mx-auto">
+          <AdBanner />
         </section>
 
         <section id="tools" className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-7xl mx-auto px-2">
@@ -180,12 +186,16 @@ export default function Home() {
         <section className="max-w-5xl mx-auto text-center py-20 glass-card rounded-[3rem] border border-primary/10 relative overflow-hidden group">
            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
            <div className="relative z-10">
-             <h2 className="text-4xl font-black mb-6 tracking-tight">Need something custom?</h2>
-             <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto font-medium">We are constantly adding new tools to help you stay ahead. Check back often for more productivity boosters!</p>
+             <h2 className="text-4xl font-black mb-6 tracking-tight">Expand Your Knowledge</h2>
+             <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto font-medium">We release new professional tools and deep-dive articles every week to keep you productive.</p>
              <Link href="/articles" className="inline-flex items-center gap-2 text-primary font-bold text-lg hover:underline underline-offset-8 transition-all">
                 Read our latest articles <ArrowRight className="h-5 w-5" />
              </Link>
            </div>
+        </section>
+        
+        <section className="max-w-7xl mx-auto">
+          <AdBanner />
         </section>
       </div>
     </AppLayout>
