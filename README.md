@@ -9,6 +9,7 @@ To sync your project with your repository at `https://github.com/taaseendua/pypa
 # 1. Remove the old, broken origin
 git remote remove origin
 
+
 # 2. Add the correct repository link
 git remote add origin https://github.com/taaseendua/pypapers.in.git
 
