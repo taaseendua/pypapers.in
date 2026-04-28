@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { 
   QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, 
   Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage, 
-  Tags, BrainCircuit, TrendingUp, ArrowRight 
+  Tags, BrainCircuit, TrendingUp, ArrowRight, Landmark, Zap
 } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { cn } from '@/lib/utils';
@@ -132,30 +132,39 @@ const tools = [
   },
 ];
 
-import { Landmark } from 'lucide-react';
-
 export default function Home() {
   return (
     <AppLayout>
       <div className="space-y-16 pb-12">
-        <section className="text-center space-y-6 pt-12 pb-8 hero-gradient rounded-3xl p-8 shadow-inner-lg">
-          <div className="inline-block px-4 py-1.5 mb-4 text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 rounded-full border border-primary/20 shadow-sm">
-            Professional Web Utilities
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-foreground lg:leading-[1.1]">
-            Lovely Tools <br className="hidden md:block" />
-            <span className="text-primary drop-shadow-sm">Beautifully Efficient</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium">
-            A premium collection of high-performance digital tools designed for the modern web. Secure, fast, and free forever.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
-            <Link href="#tools" className="inline-flex items-center justify-center h-14 px-10 text-lg font-bold text-white transition-all bg-primary rounded-xl hover:shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:-translate-y-1 active:translate-y-0 shadow-lg">
-              View All Tools <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-            <Link href="/books" className="inline-flex items-center justify-center h-14 px-10 text-lg font-bold text-primary transition-all bg-white/80 backdrop-blur-md border border-primary/20 rounded-xl hover:bg-primary/5 hover:shadow-xl hover:-translate-y-1 active:translate-y-0 shadow-md">
-              Premium Content
-            </Link>
+        <section className="relative text-center space-y-8 pt-20 pb-16 hero-gradient rounded-[3rem] p-8 shadow-inner-lg overflow-hidden">
+          {/* Subtle animated background element */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(var(--primary),0.05)_0%,transparent_70%)] pointer-events-none" />
+          
+          <div className="relative z-10 flex flex-col items-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 rounded-full border border-primary/20 shadow-sm">
+              <Zap className="h-3 w-3 fill-primary" /> Instant Productivity Tools
+            </div>
+            
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.9] md:leading-[0.85] mb-6">
+              Lovely Tools <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-indigo-500 to-primary animate-gradient-x">
+                Master Your Workflow
+              </span>
+            </h1>
+            
+            <p className="text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium">
+              The smartest collection of digital utilities designed to simplify your digital life. 
+              Professional-grade, lightning-fast, and completely free.
+            </p>
+            
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-10">
+              <Link href="#tools" className="inline-flex items-center justify-center h-16 px-12 text-lg font-bold text-white transition-all bg-primary rounded-2xl hover:shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:-translate-y-1 active:translate-y-0 shadow-lg">
+                Explore Utilities <ArrowRight className="ml-2 h-6 w-6" />
+              </Link>
+              <Link href="/books" className="inline-flex items-center justify-center h-16 px-12 text-lg font-bold text-primary transition-all bg-white/80 backdrop-blur-md border border-primary/20 rounded-2xl hover:bg-primary/5 hover:shadow-xl hover:-translate-y-1 active:translate-y-0 shadow-md">
+                Premium Content
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -163,33 +172,55 @@ export default function Home() {
           <AdBanner />
         </section>
 
-        <section id="tools" className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 max-w-7xl mx-auto px-2">
-          {tools.map((tool) => (
-            <Link href={tool.href} key={tool.title} className="group">
-              <Card className="h-full border border-white/40 shadow-sm bg-white/50 backdrop-blur-sm transition-all duration-500 group-hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] group-hover:-translate-y-3 group-hover:bg-white/90 group-hover:border-primary/20 rounded-2xl overflow-hidden">
-                <CardContent className="p-8">
-                  <div className={cn("p-5 rounded-2xl inline-flex mb-8 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm", tool.bg, tool.color)}>
-                    {tool.icon}
-                  </div>
-                  <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors tracking-tight">{tool.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed font-medium">{tool.description}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+        <section id="tools" className="space-y-12 max-w-7xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b pb-8">
+            <div className="space-y-2">
+              <h2 className="text-3xl font-black tracking-tight">Utility Hub</h2>
+              <p className="text-muted-foreground font-medium">Simple solutions for complex digital tasks.</p>
+            </div>
+            <div className="text-sm font-bold text-primary bg-primary/5 px-4 py-2 rounded-full border border-primary/10">
+              {tools.length} Tools Available
+            </div>
+          </div>
+
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {tools.map((tool) => (
+              <Link href={tool.href} key={tool.title} className="group">
+                <Card className="h-full border border-white/40 shadow-sm bg-white/50 backdrop-blur-sm transition-all duration-500 group-hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] group-hover:-translate-y-3 group-hover:bg-white/90 group-hover:border-primary/20 rounded-3xl overflow-hidden">
+                  <CardContent className="p-8">
+                    <div className={cn("p-5 rounded-2xl inline-flex mb-8 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm", tool.bg, tool.color)}>
+                      {tool.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors tracking-tight">{tool.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed font-medium line-clamp-2">{tool.description}</p>
+                    <div className="mt-6 flex items-center text-sm font-bold text-primary opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                      Use Tool <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
         </section>
         
         <section className="max-w-7xl mx-auto pt-8">
           <AdBanner />
         </section>
 
-        <section className="max-w-5xl mx-auto text-center py-20 glass-card rounded-[3rem] border border-primary/10 relative overflow-hidden group">
+        <section className="max-w-5xl mx-auto text-center py-24 glass-card rounded-[4rem] border border-primary/10 relative overflow-hidden group">
            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-           <div className="relative z-10">
-             <h2 className="text-4xl font-black mb-6 tracking-tight">Expand Your Knowledge</h2>
-             <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto font-medium">We release new professional tools and deep-dive articles every week to keep you productive.</p>
-             <Link href="/articles" className="inline-flex items-center gap-2 text-primary font-bold text-lg hover:underline underline-offset-8 transition-all">
-                Read our latest articles <ArrowRight className="h-5 w-5" />
+           <div className="relative z-10 space-y-8">
+             <div className="flex justify-center">
+                <div className="p-4 bg-primary text-white rounded-3xl shadow-2xl">
+                    <Sparkles className="h-10 w-10" />
+                </div>
+             </div>
+             <h2 className="text-4xl md:text-5xl font-black tracking-tight">Expand Your Knowledge</h2>
+             <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto font-medium">
+                We release new professional tools and deep-dive articles every week to keep your digital workflow sharp.
+             </p>
+             <Link href="/articles" className="inline-flex items-center gap-2 text-primary font-bold text-xl hover:underline underline-offset-[12px] transition-all decoration-2">
+                Browse latest articles <ArrowRight className="h-6 w-6" />
              </Link>
            </div>
         </section>
