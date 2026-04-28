@@ -10,23 +10,24 @@ A premium collection of professional, free online tools designed to simplify dai
 - **AI Content Recommender**: Intelligent book and audiobook suggestions.
 - **And more...**
 
-## 🚀 Connecting to GitHub (Fixing "Repository not found")
-If you are seeing errors when pushing, follow these exact steps:
+## 🚀 Connecting to GitHub
+If you are seeing errors when pushing, follow these exact steps to connect to your repository:
 
-1. **Create the Repository**: Go to [GitHub New Repository](https://github.com/new).
-2. **Name it**: `studio` (must match exactly).
-3. **Leave it empty**: Do NOT check "Initialize with README".
-4. **Run in your Terminal**:
+1. **Ensure the Repository Exists**: You have created [pypapers.in](https://github.com/taaseendua/pypapers.in) on GitHub.
+2. **Run in your Terminal**:
    ```bash
-   # Remove any existing connection
+   # Remove any old connection
    git remote remove origin
    
-   # Add the correct link
-   git remote add origin https://github.com/bilalgull192211/studio.git
+   # Add the correct link to your new repository
+   git remote add origin https://github.com/taaseendua/pypapers.in.git
+   
+   # Rename branch to main if it isn't already
+   git branch -M main
    
    # Push your code
    git add .
-   git commit -m "Connecting to GitHub"
+   git commit -m "Initial commit to pypapers.in"
    git push -u origin main
    ```
 
