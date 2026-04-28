@@ -12,14 +12,15 @@ export function AdBanner() {
     const pushAd = () => {
       try {
         if (typeof window !== 'undefined' && adRef.current) {
-          // Check if the element has width to avoid the "availableWidth=0" error
-          if (adRef.current.clientWidth > 0) {
+          // Check if the element is visible and has width
+          const width = adRef.current.offsetWidth;
+          if (width > 0) {
             // @ts-ignore
             (window.adsbygoogle = window.adsbygoogle || []).push({});
           } else {
-            // If no width yet, retry once after a short delay
+            // Retry once if width is not yet available
             setTimeout(() => {
-              if (adRef.current && adRef.current.clientWidth > 0) {
+              if (adRef.current && adRef.current.offsetWidth > 0) {
                 // @ts-ignore
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
               }
@@ -27,12 +28,13 @@ export function AdBanner() {
           }
         }
       } catch (e) {
-        // Fail silently if ads fail to load
+        // Silently handle AdSense push errors
+        console.error('AdSense initialization skipped:', e);
       }
     };
 
-    // Wait for the route transition and layout to settle
-    const timer = setTimeout(pushAd, 300);
+    // Delay slightly to ensure layout has settled
+    const timer = setTimeout(pushAd, 500);
     return () => clearTimeout(timer);
   }, [pathname]);
 

@@ -8,8 +8,8 @@ export const metadata: Metadata = {
     template: '%s | Lovely Tools',
     default: 'Lovely Tools - Free Online Tools for Daily Tasks',
   },
-  description: 'A free, accessible, and easy-to-use collection of online tools to help with your daily tasks, from QR code generation to word counting and more.',
-  keywords: 'online tools, free tools, productivity, calculator, converter, generator, web tools',
+  description: 'A premium, free collection of online tools designed to simplify your digital life. QR codes, calculators, converters, and more.',
+  keywords: 'online tools, free tools, pypapers, lovely tools, productivity, calculator, converter, generator',
   openGraph: {
     title: 'Lovely Tools - Free Online Tools for Daily Tasks',
     description: 'Discover a wide range of free online tools designed to simplify your everyday tasks.',
@@ -24,17 +24,6 @@ export const metadata: Metadata = {
     ],
     locale: 'en_US',
     type: 'website',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
   twitter: {
     card: 'summary_large_image',
