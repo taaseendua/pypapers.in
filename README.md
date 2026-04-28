@@ -3,7 +3,7 @@
 A premium collection of professional, free online tools designed to simplify daily digital tasks.
 
 ## 🚀 Connect to GitHub
-To sync your project with your repository at `https://github.com/taaseendua/pypapers.in`, run these commands in your terminal:
+To sync your project with your repository at `https://github.com/taaseendua/pypapers.in`, run these commands in your local terminal:
 
 ```bash
 # 1. Remove the old, broken origin
@@ -15,9 +15,13 @@ git remote add origin https://github.com/taaseendua/pypapers.in.git
 # 3. Ensure the branch is named main
 git branch -M main
 
-# 4. Push your existing code
+# 4. Stage all changes
 git add .
+
+# 5. Commit your changes
 git commit -m "Production ready release for pypapers.in"
+
+# 6. Push to your repository
 git push -u origin main
 ```
 
