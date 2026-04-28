@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = 'https://pypapers.in'; // Replace with your actual domain
+  const siteUrl = 'https://pypapers.in';
 
   return {
     rules: {

@@ -21,7 +21,7 @@ const tools = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = 'https://pypapers.in'; // Replace with your actual domain
+  const siteUrl = 'https://pypapers.in';
 
   const toolPages = tools.map((tool) => ({
     url: `${siteUrl}${tool}`,

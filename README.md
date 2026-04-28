@@ -11,21 +11,21 @@ A premium collection of professional, free online tools designed to simplify dai
 - **And more...**
 
 ## 🚀 Connecting to GitHub
-If you are seeing errors when pushing, follow these exact steps to connect to your repository:
+You are seeing "Repository not found" because your local Git is still trying to talk to the old URL. Run these exact commands in your terminal to fix it:
 
 1. **Ensure the Repository Exists**: You have created [pypapers.in](https://github.com/taaseendua/pypapers.in) on GitHub.
 2. **Run in your Terminal**:
    ```bash
-   # Remove any old connection
+   # 1. Remove the old connection that is failing
    git remote remove origin
    
-   # Add the correct link to your new repository
+   # 2. Add the correct link to your new repository
    git remote add origin https://github.com/taaseendua/pypapers.in.git
    
-   # Rename branch to main if it isn't already
+   # 3. Rename branch to main if it isn't already
    git branch -M main
    
-   # Push your code
+   # 4. Push your code
    git add .
    git commit -m "Initial commit to pypapers.in"
    git push -u origin main
