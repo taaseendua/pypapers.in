@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   },
   description: 'A premium, free collection of online tools designed to simplify your digital life. QR codes, calculators, converters, and more.',
   keywords: 'online tools, free tools, pypapers, lovely tools, productivity, calculator, converter, generator',
+  metadataBase: new URL('https://pypapers.in'),
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Lovely Tools - Free Online Tools for Daily Tasks',
     description: 'Discover a wide range of free online tools designed to simplify your everyday tasks.',
@@ -17,7 +21,7 @@ export const metadata: Metadata = {
     siteName: 'Lovely Tools',
     images: [
       {
-        url: 'https://pypapers.in/og-image.png',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
       },
