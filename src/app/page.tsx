@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { 
   QrCode, Cake, Landmark, KeyRound, Pilcrow, CaseUpper, 
   Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage, 
-  Tags, BrainCircuit, TrendingUp, ArrowRight, Zap
+  Tags, BrainCircuit, TrendingUp, Zap
 } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { cn } from '@/lib/utils';
@@ -153,17 +153,17 @@ export default function Home() {
           <AdBanner />
         </section>
 
-        <section id="tools" className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <section id="tools" className="max-w-7xl mx-auto px-4 md:px-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {tools.map((tool) => (
               <Link href={tool.href} key={tool.title} className="group">
                 <Card className="h-full border border-border/50 shadow-sm tool-card-hover rounded-2xl overflow-hidden bg-card/50">
-                  <CardContent className="p-4 flex flex-col items-center text-center">
-                    <div className={cn("p-3 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform", tool.bg, tool.color)}>
+                  <CardContent className="p-6 flex flex-col items-center text-center">
+                    <div className={cn("p-4 rounded-2xl inline-flex mb-4 group-hover:scale-110 transition-transform shadow-sm", tool.bg, tool.color)}>
                       {tool.icon}
                     </div>
-                    <h3 className="text-sm font-bold mb-1 group-hover:text-primary transition-colors">{tool.title}</h3>
-                    <p className="text-[11px] text-muted-foreground font-medium leading-tight">{tool.description}</p>
+                    <h3 className="text-base font-bold mb-1 group-hover:text-primary transition-colors">{tool.title}</h3>
+                    <p className="text-xs text-muted-foreground font-medium leading-relaxed">{tool.description}</p>
                   </CardContent>
                 </Card>
               </Link>
