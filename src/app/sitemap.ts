@@ -1,3 +1,4 @@
+
 import { MetadataRoute } from 'next';
 
 const tools = [
@@ -18,6 +19,11 @@ const tools = [
   '/trending',
   '/books',
   '/articles',
+  '/assignment-formatter',
+  '/pdf-page-numberer',
+  '/notes-cleaner',
+  '/viva-formatter',
+  '/practical-index-generator',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -34,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: siteUrl,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
+      changeFrequency: 'weekly',
       priority: 1,
     },
     ...toolPages,

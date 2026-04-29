@@ -1,15 +1,56 @@
+
 import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
   QrCode, Cake, Landmark, KeyRound, Pilcrow, CaseUpper, 
   Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage, 
-  Tags, BrainCircuit, TrendingUp, Zap
+  Tags, BrainCircuit, TrendingUp, Zap, Layout, Hash, Wand2, MessageSquare, ListOrdered
 } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { cn } from '@/lib/utils';
 
 const tools = [
+  {
+    title: 'Uni Assignment',
+    description: 'Auto-margin university formatting.',
+    href: '/assignment-formatter',
+    icon: <Layout className="h-5 w-5" />,
+    color: 'text-indigo-600',
+    bg: 'bg-indigo-100',
+  },
+  {
+    title: 'PDF Numberer',
+    description: 'Add page numbers to PDF.',
+    href: '/pdf-page-numberer',
+    icon: <Hash className="h-5 w-5" />,
+    color: 'text-blue-600',
+    bg: 'bg-blue-100',
+  },
+  {
+    title: 'Note Cleaner',
+    description: 'Enhance handwriting scans.',
+    href: '/notes-cleaner',
+    icon: <Wand2 className="h-5 w-5" />,
+    color: 'text-emerald-600',
+    bg: 'bg-emerald-100',
+  },
+  {
+    title: 'Viva Prep',
+    description: 'Format Q&A for academic files.',
+    href: '/viva-formatter',
+    icon: <MessageSquare className="h-5 w-5" />,
+    color: 'text-amber-600',
+    bg: 'bg-amber-100',
+  },
+  {
+    title: 'Practical Index',
+    description: 'Generate file index pages.',
+    href: '/practical-index-generator',
+    icon: <ListOrdered className="h-5 w-5" />,
+    color: 'text-red-600',
+    bg: 'bg-red-100',
+  },
   {
     title: 'QR Generator',
     description: 'Instant high-res QR codes.',
@@ -145,7 +186,7 @@ export default function Home() {
             <span className="text-primary">Master Your Day.</span>
           </h1>
           <p className="text-sm md:text-base text-muted-foreground max-w-lg mx-auto font-medium">
-            Lightning-fast, private, and professional utilities designed for your daily workflow.
+            Lightning-fast, private, and professional academic & productivity utilities.
           </p>
         </section>
 
@@ -154,7 +195,7 @@ export default function Home() {
         </section>
 
         <section id="tools" className="max-w-7xl mx-auto px-4 md:px-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {tools.map((tool) => (
               <Link href={tool.href} key={tool.title} className="group">
                 <Card className="h-full border border-border/50 shadow-sm tool-card-hover rounded-2xl overflow-hidden bg-card/50">
@@ -162,8 +203,8 @@ export default function Home() {
                     <div className={cn("p-4 rounded-2xl inline-flex mb-4 group-hover:scale-110 transition-transform shadow-sm", tool.bg, tool.color)}>
                       {tool.icon}
                     </div>
-                    <h3 className="text-base font-bold mb-1 group-hover:text-primary transition-colors">{tool.title}</h3>
-                    <p className="text-xs text-muted-foreground font-medium leading-relaxed">{tool.description}</p>
+                    <h3 className="text-sm font-bold mb-1 group-hover:text-primary transition-colors">{tool.title}</h3>
+                    <p className="text-[10px] text-muted-foreground font-medium leading-relaxed">{tool.description}</p>
                   </CardContent>
                 </Card>
               </Link>
@@ -171,7 +212,22 @@ export default function Home() {
           </div>
         </section>
         
-        <section className="max-w-7xl mx-auto py-8">
+        <section className="max-w-7xl mx-auto py-8 text-center space-y-8 prose prose-gray">
+          <h2 className="text-3xl font-black">Why Choose Lovely Tools (pypapers.in)?</h2>
+          <div className="grid md:grid-cols-3 gap-8 px-4">
+             <div className="space-y-2">
+                <h3 className="text-lg font-bold">100% Privacy</h3>
+                <p className="text-sm text-muted-foreground">All tools run in your browser. We never store or upload your sensitive data.</p>
+             </div>
+             <div className="space-y-2">
+                <h3 className="text-lg font-bold">University Ready</h3>
+                <p className="text-sm text-muted-foreground">Specially designed tools for Indian University students (Delhi University, IPU, etc.)</p>
+             </div>
+             <div className="space-y-2">
+                <h3 className="text-lg font-bold">Zero Costs</h3>
+                <p className="text-sm text-muted-foreground">Professional features provided completely free of charge, supported by minimal ads.</p>
+             </div>
+          </div>
           <AdBanner />
         </section>
       </div>
