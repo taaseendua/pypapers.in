@@ -2,131 +2,131 @@ import Link from 'next/link';
 import { AppLayout } from '@/components/app-layout';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
-  QrCode, Cake, Calculator, KeyRound, Pilcrow, CaseUpper, 
+  QrCode, Cake, Landmark, KeyRound, Pilcrow, CaseUpper, 
   Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage, 
-  Tags, BrainCircuit, TrendingUp, ArrowRight, Landmark, Zap
+  Tags, BrainCircuit, TrendingUp, ArrowRight, Zap
 } from 'lucide-react';
 import { AdBanner } from '@/components/ad-banner';
 import { cn } from '@/lib/utils';
 
 const tools = [
   {
-    title: 'QR Code Generator',
-    description: 'Instant high-res QR codes for any content.',
+    title: 'QR Generator',
+    description: 'Instant high-res QR codes.',
     href: '/qr-code-generator',
-    icon: <QrCode className="h-6 w-6" />,
+    icon: <QrCode className="h-5 w-5" />,
     color: 'text-blue-600',
-    bg: 'bg-blue-50',
+    bg: 'bg-blue-100',
   },
   {
-    title: 'Age Calculator',
-    description: 'Precise age breakdown in years, months, and days.',
+    title: 'Age Calc',
+    description: 'Precise breakdown of age.',
     href: '/age-calculator',
-    icon: <Cake className="h-6 w-6" />,
+    icon: <Cake className="h-5 w-5" />,
     color: 'text-pink-600',
-    bg: 'bg-pink-50',
+    bg: 'bg-pink-100',
   },
   {
-    title: 'EMI Calculator',
-    description: 'Financial planning for loans and repayments.',
+    title: 'EMI Calc',
+    description: 'Plan your loan repayments.',
     href: '/emi-calculator',
-    icon: <Landmark className="h-6 w-6" />,
+    icon: <Landmark className="h-5 w-5" />,
     color: 'text-emerald-600',
-    bg: 'bg-emerald-50',
+    bg: 'bg-emerald-100',
   },
   {
-    title: 'Password Generator',
-    description: 'Military-grade secure randomized passwords.',
+    title: 'Passwords',
+    description: 'Secure randomized passwords.',
     href: '/password-generator',
-    icon: <KeyRound className="h-6 w-6" />,
+    icon: <KeyRound className="h-5 w-5" />,
     color: 'text-amber-600',
-    bg: 'bg-amber-50',
+    bg: 'bg-amber-100',
   },
   {
     title: 'Word Counter',
-    description: 'Analyze text length and structural statistics.',
+    description: 'Analyze text statistics.',
     href: '/word-counter',
-    icon: <Pilcrow className="h-6 w-6" />,
+    icon: <Pilcrow className="h-5 w-5" />,
     color: 'text-violet-600',
-    bg: 'bg-violet-50',
+    bg: 'bg-violet-100',
   },
   {
-    title: 'Case Converter',
-    description: 'Quickly toggle between text casing formats.',
+    title: 'Case Switch',
+    description: 'Change text casing fast.',
     href: '/case-converter',
-    icon: <CaseUpper className="h-6 w-6" />,
+    icon: <CaseUpper className="h-5 w-5" />,
     color: 'text-red-600',
-    bg: 'bg-red-50',
+    bg: 'bg-red-100',
   },
   {
-    title: 'AI Content Recommender',
-    description: 'Intelligent book and audio recommendations.',
+    title: 'AI Recommend',
+    description: 'Smart content suggestions.',
     href: '/ai-content-recommender',
-    icon: <Sparkles className="h-6 w-6" />,
+    icon: <Sparkles className="h-5 w-5" />,
     color: 'text-indigo-600',
-    bg: 'bg-indigo-50',
+    bg: 'bg-indigo-100',
   },
   {
-    title: 'Image Resizer',
-    description: 'Bulk resize images without quality loss.',
+    title: 'Image Resize',
+    description: 'Fast image dimension edits.',
     href: '/image-resizer',
-    icon: <Crop className="h-6 w-6" />,
+    icon: <Crop className="h-5 w-5" />,
     color: 'text-orange-600',
-    bg: 'bg-orange-50',
+    bg: 'bg-orange-100',
   },
   {
-    title: 'YouTube Thumbnails',
-    description: 'Download high-quality video thumbnails.',
+    title: 'YT Thumbnails',
+    description: 'Download video covers.',
     href: '/youtube-thumbnail-downloader',
-    icon: <Youtube className="h-6 w-6" />,
+    icon: <Youtube className="h-5 w-5" />,
     color: 'text-rose-600',
-    bg: 'bg-rose-50',
+    bg: 'bg-rose-100',
   },
   {
-    title: 'PDF to Flipbook',
-    description: 'Transform boring PDFs into interactive books.',
+    title: 'PDF Flipbook',
+    description: 'Interactive PDF viewer.',
     href: '/pdf-to-flipbook',
-    icon: <BookUp className="h-6 w-6" />,
+    icon: <BookUp className="h-5 w-5" />,
     color: 'text-teal-600',
-    bg: 'bg-teal-50',
+    bg: 'bg-teal-100',
   },
   {
-    title: 'Drive Link Gen',
-    description: 'Direct download links for Google Drive.',
+    title: 'Drive Links',
+    description: 'Direct G-Drive downloads.',
     href: '/google-drive-downloader',
-    icon: <DownloadCloud className="h-6 w-6" />,
+    icon: <DownloadCloud className="h-5 w-5" />,
     color: 'text-sky-600',
-    bg: 'bg-sky-50',
+    bg: 'bg-sky-100',
   },
   {
     title: 'JPG to PDF',
-    description: 'Convert multiple images to a single PDF.',
+    description: 'Convert images to PDF.',
     href: '/jpg-to-pdf-converter',
-    icon: <FileImage className="h-6 w-6" />,
+    icon: <FileImage className="h-5 w-5" />,
     color: 'text-cyan-600',
-    bg: 'bg-cyan-50',
+    bg: 'bg-cyan-100',
   },
   {
-    title: 'Meta Tag Gen',
-    description: 'SEO-ready tags for your web projects.',
+    title: 'Meta Tags',
+    description: 'SEO tags generator.',
     href: '/meta-tag-generator',
-    icon: <Tags className="h-6 w-6" />,
+    icon: <Tags className="h-5 w-5" />,
     color: 'text-lime-600',
-    bg: 'bg-lime-50',
+    bg: 'bg-lime-100',
   },
   {
-    title: 'Knowledge Quiz',
-    description: 'Challenge yourself with interactive trivia.',
+    title: 'Quiz Time',
+    description: 'Test your knowledge.',
     href: '/quiz',
-    icon: <BrainCircuit className="h-6 w-6" />,
+    icon: <BrainCircuit className="h-5 w-5" />,
     color: 'text-fuchsia-600',
-    bg: 'bg-fuchsia-50',
+    bg: 'bg-fuchsia-100',
   },
   {
-    title: 'Latest Trends',
-    description: 'Real-time global news and insights.',
+    title: 'Trends',
+    description: 'Global news insights.',
     href: '/trending',
-    icon: <TrendingUp className="h-6 w-6" />,
+    icon: <TrendingUp className="h-5 w-5" />,
     color: 'text-emerald-700',
     bg: 'bg-emerald-100',
   },
@@ -135,67 +135,35 @@ const tools = [
 export default function Home() {
   return (
     <AppLayout>
-      <div className="space-y-16 pb-12">
-        <section className="relative text-center space-y-8 pt-20 pb-16 hero-gradient rounded-[3rem] p-8 shadow-inner-lg overflow-hidden">
-          {/* Subtle animated background element */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(var(--primary),0.05)_0%,transparent_70%)] pointer-events-none" />
-          
-          <div className="relative z-10 flex flex-col items-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-xs font-bold uppercase tracking-widest text-primary bg-primary/10 rounded-full border border-primary/20 shadow-sm">
-              <Zap className="h-3 w-3 fill-primary" /> Instant Productivity Tools
-            </div>
-            
-            <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.9] md:leading-[0.85] mb-6">
-              Lovely Tools <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-indigo-500 to-primary animate-gradient-x">
-                Master Your Workflow
-              </span>
-            </h1>
-            
-            <p className="text-lg md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium">
-              The smartest collection of digital utilities designed to simplify your digital life. 
-              Professional-grade, lightning-fast, and completely free.
-            </p>
-            
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-10">
-              <Link href="#tools" className="inline-flex items-center justify-center h-16 px-12 text-lg font-bold text-white transition-all bg-primary rounded-2xl hover:shadow-[0_20px_50px_rgba(59,130,246,0.3)] hover:-translate-y-1 active:translate-y-0 shadow-lg">
-                Explore Utilities <ArrowRight className="ml-2 h-6 w-6" />
-              </Link>
-              <Link href="/books" className="inline-flex items-center justify-center h-16 px-12 text-lg font-bold text-primary transition-all bg-white/80 backdrop-blur-md border border-primary/20 rounded-2xl hover:bg-primary/5 hover:shadow-xl hover:-translate-y-1 active:translate-y-0 shadow-md">
-                Premium Content
-              </Link>
-            </div>
+      <div className="space-y-12">
+        <section className="text-center space-y-4 pt-10 pb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 rounded-full">
+            <Zap className="h-3 w-3 fill-primary" /> Smart Digital Utilities
           </div>
+          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground">
+            Modern Tools. <br className="md:hidden" />
+            <span className="text-primary">Master Your Day.</span>
+          </h1>
+          <p className="text-sm md:text-base text-muted-foreground max-w-lg mx-auto font-medium">
+            Lightning-fast, private, and professional utilities designed for your daily workflow.
+          </p>
         </section>
 
         <section className="max-w-7xl mx-auto">
           <AdBanner />
         </section>
 
-        <section id="tools" className="space-y-12 max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b pb-8">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-black tracking-tight">Utility Hub</h2>
-              <p className="text-muted-foreground font-medium">Simple solutions for complex digital tasks.</p>
-            </div>
-            <div className="text-sm font-bold text-primary bg-primary/5 px-4 py-2 rounded-full border border-primary/10">
-              {tools.length} Tools Available
-            </div>
-          </div>
-
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <section id="tools" className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {tools.map((tool) => (
               <Link href={tool.href} key={tool.title} className="group">
-                <Card className="h-full border border-white/40 shadow-sm bg-white/50 backdrop-blur-sm transition-all duration-500 group-hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] group-hover:-translate-y-3 group-hover:bg-white/90 group-hover:border-primary/20 rounded-3xl overflow-hidden">
-                  <CardContent className="p-8">
-                    <div className={cn("p-5 rounded-2xl inline-flex mb-8 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 shadow-sm", tool.bg, tool.color)}>
+                <Card className="h-full border border-border/50 shadow-sm tool-card-hover rounded-2xl overflow-hidden bg-card/50">
+                  <CardContent className="p-4 flex flex-col items-center text-center">
+                    <div className={cn("p-3 rounded-xl inline-flex mb-3 group-hover:scale-110 transition-transform", tool.bg, tool.color)}>
                       {tool.icon}
                     </div>
-                    <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors tracking-tight">{tool.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed font-medium line-clamp-2">{tool.description}</p>
-                    <div className="mt-6 flex items-center text-sm font-bold text-primary opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                      Use Tool <ArrowRight className="ml-2 h-4 w-4" />
-                    </div>
+                    <h3 className="text-sm font-bold mb-1 group-hover:text-primary transition-colors">{tool.title}</h3>
+                    <p className="text-[11px] text-muted-foreground font-medium leading-tight">{tool.description}</p>
                   </CardContent>
                 </Card>
               </Link>
@@ -203,29 +171,7 @@ export default function Home() {
           </div>
         </section>
         
-        <section className="max-w-7xl mx-auto pt-8">
-          <AdBanner />
-        </section>
-
-        <section className="max-w-5xl mx-auto text-center py-24 glass-card rounded-[4rem] border border-primary/10 relative overflow-hidden group">
-           <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-           <div className="relative z-10 space-y-8">
-             <div className="flex justify-center">
-                <div className="p-4 bg-primary text-white rounded-3xl shadow-2xl">
-                    <Sparkles className="h-10 w-10" />
-                </div>
-             </div>
-             <h2 className="text-4xl md:text-5xl font-black tracking-tight">Expand Your Knowledge</h2>
-             <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto font-medium">
-                We release new professional tools and deep-dive articles every week to keep your digital workflow sharp.
-             </p>
-             <Link href="/articles" className="inline-flex items-center gap-2 text-primary font-bold text-xl hover:underline underline-offset-[12px] transition-all decoration-2">
-                Browse latest articles <ArrowRight className="h-6 w-6" />
-             </Link>
-           </div>
-        </section>
-        
-        <section className="max-w-7xl mx-auto">
+        <section className="max-w-7xl mx-auto py-8">
           <AdBanner />
         </section>
       </div>

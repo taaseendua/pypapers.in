@@ -11,77 +11,55 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   const navLinks = [
     { href: '/', label: 'Tools' },
-    { href: '/trending', label: 'Trending' },
+    { href: '/trending', label: 'Trends' },
     { href: '/books', label: 'Books' },
-    { href: '/articles', label: 'Articles' },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-background selection:bg-primary/20">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4 flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-105 active:scale-95">
+    <div className="min-h-screen flex flex-col bg-background">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-md">
+        <div className="container mx-auto px-4 flex h-14 items-center justify-between">
+          <Link href="/" className="flex items-center gap-2">
             <Logo />
           </Link>
-          <nav className="hidden md:flex gap-8 items-center">
+          <nav className="flex gap-4 md:gap-8 items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "text-sm font-semibold transition-all hover:text-primary relative py-1",
-                  pathname === link.href 
-                    ? "text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary after:rounded-full" 
-                    : "text-muted-foreground"
+                  "text-xs md:text-sm font-bold transition-all hover:text-primary relative py-1",
+                  pathname === link.href ? "text-primary" : "text-muted-foreground"
                 )}
               >
                 {link.label}
               </Link>
             ))}
           </nav>
-          <div className="md:hidden">
-            {/* Simple Mobile indicator or Menu icon would go here */}
-          </div>
         </div>
       </header>
       
-      <main className="flex-1 container mx-auto px-4 py-8 md:py-12">
+      <main className="flex-1 container mx-auto px-4 py-6 md:py-10">
         {children}
       </main>
 
-      <footer className="border-t bg-card/50 backdrop-blur-sm mt-auto">
-        <div className="container mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-            <div className="md:col-span-2 space-y-6">
+      <footer className="border-t bg-card/30 mt-auto">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="space-y-2 text-center md:text-left">
               <Logo />
-              <p className="text-muted-foreground max-w-sm leading-relaxed">
-                Lovely Tools is a premium collection of digital utilities built for speed, privacy, and simplicity. We help you get things done, beautifully.
+              <p className="text-[10px] md:text-xs text-muted-foreground">
+                Professional tools for digital simplicity. 100% free and private.
               </p>
             </div>
-            <div className="space-y-4">
-              <h4 className="font-bold text-foreground">Products</h4>
-              <ul className="space-y-3 text-sm text-muted-foreground">
-                <li><Link href="/qr-code-generator" className="hover:text-primary transition-colors">QR Generator</Link></li>
-                <li><Link href="/age-calculator" className="hover:text-primary transition-colors">Age Calculator</Link></li>
-                <li><Link href="/emi-calculator" className="hover:text-primary transition-colors">EMI Calculator</Link></li>
-                <li><Link href="/pdf-to-flipbook" className="hover:text-primary transition-colors">PDF Flipbook</Link></li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-bold text-foreground">Company</h4>
-              <ul className="space-y-3 text-sm text-muted-foreground">
-                <li><Link href="/articles" className="hover:text-primary transition-colors">Articles</Link></li>
-                <li><Link href="/trending" className="hover:text-primary transition-colors">Trends</Link></li>
-                <li><Link href="/coming-soon" className="hover:text-primary transition-colors">Privacy</Link></li>
-                <li><Link href="/coming-soon" className="hover:text-primary transition-colors">Terms</Link></li>
-              </ul>
+            <div className="flex gap-4 text-xs font-semibold text-muted-foreground">
+              <Link href="/trending" className="hover:text-primary">News</Link>
+              <Link href="/books" className="hover:text-primary">Books</Link>
+              <Link href="/articles" className="hover:text-primary">Articles</Link>
             </div>
           </div>
-          <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} Lovely Tools (pypapers.in). All rights reserved.</p>
-            <div className="flex gap-6">
-              <span>Made with ❤️ for everyone</span>
-            </div>
+          <div className="mt-6 pt-6 border-t text-center text-[10px] text-muted-foreground">
+            <p>&copy; {new Date().getFullYear()} Lovely Tools. Built for speed and simplicity.</p>
           </div>
         </div>
       </footer>
