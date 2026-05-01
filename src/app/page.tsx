@@ -1,234 +1,225 @@
-
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { AppLayout } from '@/components/app-layout';
-import { Card, CardContent } from '@/components/ui/card';
-import { 
-  QrCode, Cake, Landmark, KeyRound, Pilcrow, CaseUpper, 
-  Sparkles, Crop, Youtube, BookUp, DownloadCloud, FileImage, 
-  Tags, BrainCircuit, TrendingUp, Zap, Layout, Hash, Wand2, MessageSquare, ListOrdered
+import {
+  ArrowRight,
+  BookOpenCheck,
+  FileSearch,
+  GraduationCap,
+  Hash,
+  Layout,
+  ListOrdered,
+  MessageSquare,
+  ShieldCheck,
+  Wand2,
 } from 'lucide-react';
+import { AppLayout } from '@/components/app-layout';
+import { ResourceFinder } from '@/components/resource-finder';
+import { StructuredData } from '@/components/structured-data';
 import { AdBanner } from '@/components/ad-banner';
-import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { coreTools, educationResources, growthGuides, siteConfig } from '@/lib/site-data';
 
-const tools = [
+export const metadata: Metadata = {
+  title: 'Previous Year Papers, Notes, Sample Papers & Free Student Tools',
+  description:
+    'Search student resources for CBSE, CUET, JEE, NEET, DU, IGNOU, and IPU. Use free academic tools for assignments, notes, PDFs, and exam preparation.',
+  alternates: {
+    canonical: '/',
+  },
+};
+
+const toolIcons = [Layout, Hash, Wand2, MessageSquare, ListOrdered, FileSearch];
+
+const homeStructuredData = [
   {
-    title: 'Uni Assignment',
-    description: 'Auto-margin university formatting.',
-    href: '/assignment-formatter',
-    icon: <Layout className="h-5 w-5" />,
-    color: 'text-indigo-600',
-    bg: 'bg-indigo-100',
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'PYPapers.in education resources',
+    itemListElement: educationResources.map((resource, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: resource.title,
+      url: `${siteConfig.url}/previous-year-papers#${resource.slug}`,
+    })),
   },
   {
-    title: 'PDF Numberer',
-    description: 'Add page numbers to PDF.',
-    href: '/pdf-page-numberer',
-    icon: <Hash className="h-5 w-5" />,
-    color: 'text-blue-600',
-    bg: 'bg-blue-100',
-  },
-  {
-    title: 'Note Cleaner',
-    description: 'Enhance handwriting scans.',
-    href: '/notes-cleaner',
-    icon: <Wand2 className="h-5 w-5" />,
-    color: 'text-emerald-600',
-    bg: 'bg-emerald-100',
-  },
-  {
-    title: 'Viva Prep',
-    description: 'Format Q&A for academic files.',
-    href: '/viva-formatter',
-    icon: <MessageSquare className="h-5 w-5" />,
-    color: 'text-amber-600',
-    bg: 'bg-amber-100',
-  },
-  {
-    title: 'Practical Index',
-    description: 'Generate file index pages.',
-    href: '/practical-index-generator',
-    icon: <ListOrdered className="h-5 w-5" />,
-    color: 'text-red-600',
-    bg: 'bg-red-100',
-  },
-  {
-    title: 'QR Generator',
-    description: 'Instant high-res QR codes.',
-    href: '/qr-code-generator',
-    icon: <QrCode className="h-5 w-5" />,
-    color: 'text-blue-600',
-    bg: 'bg-blue-100',
-  },
-  {
-    title: 'Age Calc',
-    description: 'Precise breakdown of age.',
-    href: '/age-calculator',
-    icon: <Cake className="h-5 w-5" />,
-    color: 'text-pink-600',
-    bg: 'bg-pink-100',
-  },
-  {
-    title: 'EMI Calc',
-    description: 'Plan your loan repayments.',
-    href: '/emi-calculator',
-    icon: <Landmark className="h-5 w-5" />,
-    color: 'text-emerald-600',
-    bg: 'bg-emerald-100',
-  },
-  {
-    title: 'Passwords',
-    description: 'Secure randomized passwords.',
-    href: '/password-generator',
-    icon: <KeyRound className="h-5 w-5" />,
-    color: 'text-amber-600',
-    bg: 'bg-amber-100',
-  },
-  {
-    title: 'Word Counter',
-    description: 'Analyze text statistics.',
-    href: '/word-counter',
-    icon: <Pilcrow className="h-5 w-5" />,
-    color: 'text-violet-600',
-    bg: 'bg-violet-100',
-  },
-  {
-    title: 'Case Switch',
-    description: 'Change text casing fast.',
-    href: '/case-converter',
-    icon: <CaseUpper className="h-5 w-5" />,
-    color: 'text-red-600',
-    bg: 'bg-red-100',
-  },
-  {
-    title: 'AI Recommend',
-    description: 'Smart content suggestions.',
-    href: '/ai-content-recommender',
-    icon: <Sparkles className="h-5 w-5" />,
-    color: 'text-indigo-600',
-    bg: 'bg-indigo-100',
-  },
-  {
-    title: 'Image Resize',
-    description: 'Fast image dimension edits.',
-    href: '/image-resizer',
-    icon: <Crop className="h-5 w-5" />,
-    color: 'text-orange-600',
-    bg: 'bg-orange-100',
-  },
-  {
-    title: 'YT Thumbnails',
-    description: 'Download video covers.',
-    href: '/youtube-thumbnail-downloader',
-    icon: <Youtube className="h-5 w-5" />,
-    color: 'text-rose-600',
-    bg: 'bg-rose-100',
-  },
-  {
-    title: 'PDF Flipbook',
-    description: 'Interactive PDF viewer.',
-    href: '/pdf-to-flipbook',
-    icon: <BookUp className="h-5 w-5" />,
-    color: 'text-teal-600',
-    bg: 'bg-teal-100',
-  },
-  {
-    title: 'Drive Links',
-    description: 'Direct G-Drive downloads.',
-    href: '/google-drive-downloader',
-    icon: <DownloadCloud className="h-5 w-5" />,
-    color: 'text-sky-600',
-    bg: 'bg-sky-100',
-  },
-  {
-    title: 'JPG to PDF',
-    description: 'Convert images to PDF.',
-    href: '/jpg-to-pdf-converter',
-    icon: <FileImage className="h-5 w-5" />,
-    color: 'text-cyan-600',
-    bg: 'bg-cyan-100',
-  },
-  {
-    title: 'Meta Tags',
-    description: 'SEO tags generator.',
-    href: '/meta-tag-generator',
-    icon: <Tags className="h-5 w-5" />,
-    color: 'text-lime-600',
-    bg: 'bg-lime-100',
-  },
-  {
-    title: 'Quiz Time',
-    description: 'Test your knowledge.',
-    href: '/quiz',
-    icon: <BrainCircuit className="h-5 w-5" />,
-    color: 'text-fuchsia-600',
-    bg: 'bg-fuchsia-100',
-  },
-  {
-    title: 'Trends',
-    description: 'Global news insights.',
-    href: '/trending',
-    icon: <TrendingUp className="h-5 w-5" />,
-    color: 'text-emerald-700',
-    bg: 'bg-emerald-100',
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What can I find on PYPapers.in?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'PYPapers.in organizes previous year papers, sample papers, student notes, preparation guides, and free academic tools for Indian students.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Are the tools free to use?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. The academic tools on PYPapers.in are free and designed to run with minimal friction for students.',
+        },
+      },
+    ],
   },
 ];
 
 export default function Home() {
   return (
     <AppLayout>
+      <StructuredData data={homeStructuredData} />
       <div className="space-y-12">
-        <section className="text-center space-y-4 pt-10 pb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 rounded-full">
-            <Zap className="h-3 w-3 fill-primary" /> Smart Digital Utilities
+        <section className="grid items-center gap-8 pt-6 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="space-y-6">
+            <Badge className="w-fit bg-primary/10 text-primary hover:bg-primary/10">
+              Papers, notes, tools, and exam prep
+            </Badge>
+            <div className="space-y-4">
+              <h1 className="max-w-4xl text-4xl font-black tracking-tight text-foreground md:text-6xl">
+                Previous year papers and student tools that save real study time.
+              </h1>
+              <p className="max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+                Search exam resources by board, year, subject, and exam. Then use free tools
+                to format assignments, clean notes, number PDFs, and prepare practical files.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" className="font-bold">
+                <Link href="/previous-year-papers">
+                  Find papers <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="font-bold">
+                <Link href="#student-tools">Use free tools</Link>
+              </Button>
+            </div>
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-foreground">
-            Modern Tools. <br className="md:hidden" />
-            <span className="text-primary">Master Your Day.</span>
-          </h1>
-          <p className="text-sm md:text-base text-muted-foreground max-w-lg mx-auto font-medium">
-            Lightning-fast, private, and professional academic & productivity utilities.
-          </p>
-        </section>
 
-        <section className="max-w-7xl mx-auto">
-          <AdBanner />
-        </section>
-
-        <section id="tools" className="max-w-7xl mx-auto px-4 md:px-0">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {tools.map((tool) => (
-              <Link href={tool.href} key={tool.title} className="group">
-                <Card className="h-full border border-border/50 shadow-sm tool-card-hover rounded-2xl overflow-hidden bg-card/50">
-                  <CardContent className="p-6 flex flex-col items-center text-center">
-                    <div className={cn("p-4 rounded-2xl inline-flex mb-4 group-hover:scale-110 transition-transform shadow-sm", tool.bg, tool.color)}>
-                      {tool.icon}
-                    </div>
-                    <h3 className="text-sm font-bold mb-1 group-hover:text-primary transition-colors">{tool.title}</h3>
-                    <p className="text-[10px] text-muted-foreground font-medium leading-relaxed">{tool.description}</p>
-                  </CardContent>
-                </Card>
-              </Link>
+          <div className="grid gap-4 rounded-2xl border bg-card p-5 shadow-sm">
+            {[
+              ['Resource categories', '8', 'Previous papers, samples, notes, guides'],
+              ['Priority exams', 'CBSE, CUET, JEE, NEET', 'Built around Indian student demand'],
+              ['Core tools', `${coreTools.length}`, 'PDF, assignment, notes, and viva workflows'],
+            ].map(([label, value, helper]) => (
+              <div key={label} className="rounded-xl border bg-background p-4">
+                <p className="text-xs font-bold uppercase text-muted-foreground">{label}</p>
+                <p className="mt-2 text-2xl font-black text-foreground">{value}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{helper}</p>
+              </div>
             ))}
           </div>
         </section>
-        
-        <section className="max-w-7xl mx-auto py-8 text-center space-y-8 prose prose-gray">
-          <h2 className="text-3xl font-black">Why Choose Lovely Tools (pypapers.in)?</h2>
-          <div className="grid md:grid-cols-3 gap-8 px-4">
-             <div className="space-y-2">
-                <h3 className="text-lg font-bold">100% Privacy</h3>
-                <p className="text-sm text-muted-foreground">All tools run in your browser. We never store or upload your sensitive data.</p>
-             </div>
-             <div className="space-y-2">
-                <h3 className="text-lg font-bold">University Ready</h3>
-                <p className="text-sm text-muted-foreground">Specially designed tools for Indian University students (Delhi University, IPU, etc.)</p>
-             </div>
-             <div className="space-y-2">
-                <h3 className="text-lg font-bold">Zero Costs</h3>
-                <p className="text-sm text-muted-foreground">Professional features provided completely free of charge, supported by minimal ads.</p>
-             </div>
+
+        <AdBanner />
+
+        <section className="space-y-4">
+          <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
+            <div>
+              <Badge variant="outline">Resource finder</Badge>
+              <h2 className="mt-3 text-3xl font-black tracking-tight">
+                Search high-demand student resources
+              </h2>
+            </div>
+            <p className="max-w-xl text-sm leading-6 text-muted-foreground">
+              This library is structured for scalable SEO: every collection can become a useful,
+              verified page with papers, answer keys, FAQs, and internal links.
+            </p>
           </div>
-          <AdBanner />
+          <ResourceFinder />
+        </section>
+
+        <section id="student-tools" className="space-y-4">
+          <div className="flex items-center gap-3">
+            <GraduationCap className="h-7 w-7 text-primary" />
+            <h2 className="text-3xl font-black tracking-tight">Free academic tools</h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {coreTools.map((tool, index) => {
+              const Icon = toolIcons[index] ?? BookOpenCheck;
+              return (
+                <Link href={tool.href} key={tool.href} className="group">
+                  <Card className="h-full rounded-2xl border-border/70 shadow-sm transition-shadow hover:shadow-md">
+                    <CardHeader className="space-y-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <Badge variant="secondary">{tool.category}</Badge>
+                        <CardTitle className="mt-3 text-xl group-hover:text-primary">
+                          {tool.title}
+                        </CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm leading-6 text-muted-foreground">
+                        {tool.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="grid gap-4 rounded-2xl border bg-card p-5 shadow-sm md:grid-cols-3">
+          {[
+            {
+              title: 'White-hat SEO only',
+              description:
+                'Build original pages around real student intent, verified files, and clear navigation.',
+              icon: ShieldCheck,
+            },
+            {
+              title: 'Faster indexing',
+              description:
+                'Keep sitemap coverage tight, link important hubs from the home page, and avoid thin pages.',
+              icon: FileSearch,
+            },
+            {
+              title: 'Revenue-ready UX',
+              description:
+                'Place ads around helpful content without blocking downloads, tools, or reading flow.',
+              icon: BookOpenCheck,
+            },
+          ].map((item) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.title} className="space-y-3 rounded-xl bg-background p-4">
+                <Icon className="h-6 w-6 text-primary" />
+                <h3 className="font-bold">{item.title}</h3>
+                <p className="text-sm leading-6 text-muted-foreground">{item.description}</p>
+              </div>
+            );
+          })}
+        </section>
+
+        <section className="space-y-4">
+          <div>
+            <Badge variant="outline">Growth system</Badge>
+            <h2 className="mt-3 text-3xl font-black tracking-tight">What to publish next</h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {growthGuides.map((guide) => (
+              <Card key={guide.title} className="rounded-2xl border-border/70">
+                <CardHeader>
+                  <CardTitle className="text-xl">{guide.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm leading-6 text-muted-foreground">{guide.description}</p>
+                  <Button asChild variant="link" className="h-auto p-0 font-bold">
+                    <Link href={guide.href}>
+                      Open path <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </section>
       </div>
     </AppLayout>

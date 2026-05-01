@@ -2,43 +2,92 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import './globals.css';
+import { Analytics } from '@/components/analytics';
+import { StructuredData } from '@/components/structured-data';
 import { Toaster } from '@/components/ui/toaster';
+import { siteConfig } from '@/lib/site-data';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Lovely Tools - pypapers.in',
-    default: 'Lovely Tools - Free Online Academic & Digital Tools',
+    template: `%s | ${siteConfig.name}`,
+    default: 'PYPapers.in - Previous Year Papers, Notes & Student Tools',
   },
-  description: 'A premium collection of student-centric tools. Format university assignments, clean handwritten notes, add PDF page numbers, and more at pypapers.in.',
-  keywords: 'pypapers, lovely tools, university assignment formatter, pdf page numberer, handwritten notes cleaner, viva formatter, practical file index generator, free online tools',
-  metadataBase: new URL('https://pypapers.in'),
+  description: siteConfig.description,
+  keywords: [
+    'previous year question papers',
+    'sample papers',
+    'CBSE previous year papers',
+    'CUET sample papers',
+    'JEE Main previous year papers',
+    'NEET previous year papers',
+    'university notes',
+    'student tools',
+    'assignment formatter',
+    'pypapers',
+  ],
+  metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: '/',
   },
+  applicationName: siteConfig.name,
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
-    title: 'Lovely Tools - Free Academic & Digital Utilities',
-    description: 'Master your digital workflow with our 100% free, private tools for students and professionals.',
-    url: 'https://pypapers.in',
-    siteName: 'Lovely Tools',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-      },
-    ],
+    title: 'PYPapers.in - Previous Year Papers, Notes & Student Tools',
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Lovely Tools - Free Academic & Digital Utilities',
-    description: 'The ultimate tool suite for university students. Fast, free, and secure.',
+    title: 'PYPapers.in - Previous Year Papers, Notes & Student Tools',
+    description: siteConfig.description,
   },
   verification: {
     google: 'sFoaNbrjyICA19YNvq991-tVAC7KpI8J7oJgbVZF9Ug',
   },
 };
+
+const globalStructuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${siteConfig.url}/previous-year-papers?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'EducationalOrganization',
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+  },
+];
 
 export default function RootLayout({
   children,
@@ -56,13 +105,15 @@ export default function RootLayout({
         />
         <Script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8167663924453774"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.adsenseClient}`}
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
       </head>
       <body className="font-body antialiased">
+        <StructuredData data={globalStructuredData} />
         {children}
+        <Analytics />
         <Toaster />
       </body>
     </html>

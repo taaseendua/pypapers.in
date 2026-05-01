@@ -2,6 +2,7 @@
 import { MetadataRoute } from 'next';
 
 const tools = [
+  '/previous-year-papers',
   '/qr-code-generator',
   '/age-calculator',
   '/emi-calculator',

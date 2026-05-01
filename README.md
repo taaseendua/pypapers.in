@@ -1,6 +1,6 @@
-# Lovely Tools (pypapers.in)
+# PYPapers.in
 
-A premium collection of professional, free online tools designed to simplify daily digital tasks.
+An education-first platform for previous year papers, sample papers, student notes, exam preparation resources, and free academic tools.
 
 ## 🚀 Connect to GitHub
 To sync your project with your repository at `https://github.com/taaseendua/pypapers.in`, run these commands in your local terminal:
@@ -27,6 +27,9 @@ git push -u origin main
 ```
 
 ## Features
+- **Previous Year Papers Hub**: Searchable roadmap for CBSE, CUET, JEE, NEET, DU, IGNOU, and IPU resources.
+- **SEO Foundation**: Metadata, sitemap, robots, JSON-LD schema, and internal links for education resource discovery.
+- **Growth Workflow**: White-hat publishing and monitoring plan for verified papers, notes, and guides.
 - **QR Code Generator**: Create high-resolution QR codes.
 - **Age Calculator**: Precise breakdown of age in years, months, and days.
 - **EMI Calculator**: Financial planning for loans.
